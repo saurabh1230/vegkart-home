@@ -4,6 +4,7 @@ import 'package:ebasket_customer/app/model/address_model.dart';
 import 'package:ebasket_customer/app/model/todays_special_model.dart';
 import 'package:ebasket_customer/app/ui/delivery_address_screen/delivery_address_screen.dart';
 import 'package:ebasket_customer/app/ui/home_screen/components/horizontal_component_widget.dart';
+import 'package:ebasket_customer/app/ui/home_screen/components/todays_sepcial_offer_widget.dart';
 import 'package:ebasket_customer/app/ui/login_screen/login_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ebasket_customer/app/ui/search_screen/search_screen.dart';
@@ -64,70 +65,79 @@ class _HomeScreenState extends State<HomeScreen> {
           Dialog(
             backgroundColor: Colors.transparent,
             insetPadding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-            child: SizedBox(
-              height: 400,
-              width: Get.size.width,
-              child: Stack(
-                children: [
-                  // Background Image
-                  Image.asset(
-                    'assets/images/coupon_bg.png',
-                    height: 400,
-                    width: Get.size.width,
-                    fit: BoxFit.cover, // Ensure the image covers the entire dialog area
-                  ),
-                  // Text and other content on top of the image
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0), // Adjust padding for text inside the image
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // sizedBox30(),
-                        Align(alignment: Alignment.centerRight,
-                            child: IconButton(onPressed: () {
-                              Get.back();
-                            }, icon: Icon(Icons.cancel,color: Theme.of(context).cardColor,))),
-                        Image.asset('assets/images/Hurry Up.png',height: 40,
-                        width: 180,),
-                        SizedBox(height: 10), // Use SizedBox for spacing
-                        // Sub-headline Text
-                        Text(
-                          'Savings Are Waiting!',
-                          style: montserratMedium.copyWith(
-                            fontSize: Dimensions.fontSize15,
-                            color: Colors.white, // Ensure text is readable on the background
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 10), // Use SizedBox for spacing
-                        // Offer Text
-                        Text(
-                          'Get 25% OFF on all fresh produce today only!',
-                          style: montserratBold.copyWith(
-                            fontSize: Dimensions.fontSize20,
-                            color: Theme.of(context).highlightColor, // Customize color as needed
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                    SizedBox(height: 10),
-                        CustomButtonWidget(buttonText: 'Order Now',
-                        onPressed: () {
-                          Get.back();
-                        },
-                          width: 180,
-                          height: 40,
-                          radius: Dimensions.radius20,
-                        fontSize: Dimensions.fontSizeDefault,
-                        textColor: Theme.of(context).primaryColor,
-                        color: Theme.of(context).highlightColor,),
-
-                      ],
+            child: InkWell(
+              onTap: () {
+                Get.to(const ViewAllCategoryProductScreen(), arguments:
+                {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
+                  "categoryName": 'Fresh Vegetables'});
+              },
+              child: SizedBox(
+                height: 400,
+                width: Get.size.width,
+                child: Stack(
+                  children: [
+                    // Background Image
+                    Image.asset(
+                      'assets/images/coupon_bg.png',
+                      height: 400,
+                      width: Get.size.width,
+                      fit: BoxFit.cover, // Ensure the image covers the entire dialog area
                     ),
-                  ),
-                  Positioned(bottom: 0,right: 0,left: 0,
-                      child: Image.asset('assets/images/coupon_product_image.png',height:140,)),
-                ],
+                    // Text and other content on top of the image
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0), // Adjust padding for text inside the image
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // sizedBox30(),
+                          Align(alignment: Alignment.centerRight,
+                              child: IconButton(onPressed: () {
+                                Get.back();
+                              }, icon: Icon(Icons.cancel,color: Theme.of(context).cardColor,))),
+                          Image.asset('assets/images/Hurry Up.png',height: 40,
+                          width: 180,),
+                          SizedBox(height: 10), // Use SizedBox for spacing
+                          // Sub-headline Text
+                          Text(
+                            'Savings Are Waiting!',
+                            style: montserratMedium.copyWith(
+                              fontSize: Dimensions.fontSize15,
+                              color: Colors.white, // Ensure text is readable on the background
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 10), // Use SizedBox for spacing
+                          // Offer Text
+                          Text(
+                            'Get 25% OFF on all fresh produce vegetables today only!',
+                            style: montserratBold.copyWith(
+                              fontSize: Dimensions.fontSize20,
+                              color: Theme.of(context).highlightColor, // Customize color as needed
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                      SizedBox(height: 10),
+                          CustomButtonWidget(buttonText: 'Order Now',
+                          onPressed: () {
+                            Get.to(const ViewAllCategoryProductScreen(), arguments:
+                            {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
+                              "categoryName": 'Fresh Vegetables'});
+                          },
+                            width: 180,
+                            height: 40,
+                            radius: Dimensions.radius20,
+                          fontSize: Dimensions.fontSizeDefault,
+                          textColor: Theme.of(context).primaryColor,
+                          color: Theme.of(context).highlightColor,),
+
+                        ],
+                      ),
+                    ),
+                    Positioned(bottom: 0,right: 0,left: 0,
+                        child: Image.asset('assets/images/coupon_product_image.png',height:140,)),
+                  ],
+                ),
               ),
             ),
           ),
@@ -416,8 +426,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.yellow,
                                       ),
                                       Expanded(
-                                        child: Constant
-                                                    .selectedPosition.locality !=
+                                        child: Constant.selectedPosition.locality !=
                                                 null
                                             ? Text(
                                                 Constant.selectedPosition
@@ -429,7 +438,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: AppThemeData.white,
                                                   fontSize: 12,
                                                   fontFamily:
-                                                      AppThemeData.regular,
+                                                      AppThemeData.bold,
                                                 ),
                                               )
                                             : Text(
@@ -580,56 +589,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               sizedBox10(),
                                               AutoScrollText(),
-                              //                      Row(
-                              //   children: [
-                              //     Expanded(
-                              //       child: Text(
-                              //         "Today's Special",
-                              //         style: TextStyle(color: AppThemeData.black, fontSize: 18, fontFamily: AppThemeData.semiBold),
-                              //       ),
-                              //     ),
-                              //     InkWell(
-                              //       onTap: () {
-                              //         Get.to(const ViewAllBrandScreen(), arguments: {"type": 'offer'})!.then((value) {});
-                              //       },
-                              //       child: Text(
-                              //         "View All".tr,
-                              //         style: TextStyle(color: appColor, fontSize: 12, fontFamily: AppThemeData.semiBold),
-                              //       ),
-                              //     )
-                              //   ],
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // Container(
-                              //   height: Responsive.height(18, context),
-                              //   alignment: Alignment.centerLeft,
-                              //   child: ListView.builder(
-                              //     shrinkWrap: true,
-                              //     scrollDirection: Axis.horizontal,
-                              //     itemCount: controller.bestOfferList.length,
-                              //     itemBuilder: (context, index) {
-                              //       ProductModel offerItem = controller.bestOfferList[index];
-                              //       return InkWell(
-                              //         onTap: () {},
-                              //         child: OffersItemWidget(
-                              //           offerItem: offerItem,
-                              //           controller: controller,
-                              //           index: index,
-                              //         ),
-                              //       );
-                              //     },
-                              //   ),
-                              // ),
-                              //                 HorizontalProductWidget(
-                              //                   title: 'Flash Deals',
-                              //                   items: controller.bestOfferList,
-                              //                   // Pass the actual list of items here
-                              //                   onItemTap: (item) {
-                              //                     // Handle item tap
-                              //                   },
-                              //                 ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                                                child: TodaySpecialOfferWidget(
+                                                  title: 'Today Special Offers',
+                                                  items:
+                                                  productControl.bestOfferList,
+                                                  onItemTap: (item) {
+                                                  }, onSeeAllTap: () {
+                                                  productControl.bestOfferList[0].categoryID.toString();
+
+                                                },
+                                                ),
+                                              ),
                                               Container(
                                                 height: Responsive.height(18, context),
                                                 width: Get.size.width,
@@ -648,7 +620,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     TodaySpecialModel todaySpecial = controller.todaySpecialList[index];
                                                     return InkWell(
                                                       onTap: () {
-                                                        print('Image URL: ${todaySpecial.imageUrl}');
+                                                        // Add navigation logic based on index
+                                                        if (index == 0) {
+                                                          Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                          {"categoryId": productControl.freshFruitsList[0].categoryID.toString(),
+                                                            "categoryName": 'Fresh Fruits'});
+
+                                                        } else if (index == 1) {
+                                                          Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                          {"categoryId": productControl.freshVegetablesList[0].categoryID.toString(),
+                                                            "categoryName": 'Fresh Vegetables'});
+                                                        } else {
+                                                          // Default action for other indices
+                                                          // Get.to(DefaultPageScreen(), arguments: {
+                                                          //   "data": todaySpecial,
+                                                          // });
+                                                        }
                                                       },
                                                       child: ClipRRect(
                                                         borderRadius: BorderRadius.circular(10), // Add some rounded corners
@@ -661,6 +648,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   },
                                                 ),
                                               ),
+
 
                                               const SizedBox(
                                                 height: 25,
@@ -753,7 +741,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                                       Get.to(const ViewAllCategoryProductScreen(), arguments:
                                                       {"categoryId": productControl.freshVegetablesList[0].categoryID.toString(),
-                                                        "categoryName": productControl.freshVegetablesList[0].name.toString()});
+                                                        "categoryName": 'Fresh Vegetables'});
                                                     },
                                                     ),
                                                     sizedBoxDefault(),
@@ -765,7 +753,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       onItemTap: (item) {
                                                         // Handle item tap
                                                       }, onSeeAllTap: () {
-                                                      productControl.freshFruitsList[0].categoryID.toString();
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.freshFruitsList[0].categoryID.toString(),
+                                                        "categoryName": 'Fresh Fruits'});
                                                     },
                                                     ),
                                                     sizedBoxDefault(),
@@ -777,7 +767,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       onItemTap: (item) {
                                                         // Handle item tap
                                                       }, onSeeAllTap: () {
-                                                        productControl.exoticVegetablesList[0].categoryID.toString();
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.exoticVegetablesList[0].categoryID.toString(),
+                                                        "categoryName": 'Exotic Vegetables'});
+
+
 
                                                     },
                                                     ),
@@ -790,7 +784,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       onItemTap: (item) {
                                                         // Handle item tap
                                                       }, onSeeAllTap: () {
-                                                      productControl.exoticFruitsList[0].categoryID.toString();
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.exoticFruitsList[0].categoryID.toString(),
+                                                        "categoryName": 'Exotic Fruits'});
                                                     },
                                                     ),
                                                     sizedBoxDefault(),
@@ -802,7 +798,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       onItemTap: (item) {
                                                         // Handle item tap
                                                       }, onSeeAllTap: () {
-                                                      productControl.greenVegetablesList[0].categoryID.toString();
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.greenVegetablesList[0].categoryID.toString(),
+                                                        "categoryName": 'Green Vegetables'});
                                                     },
                                                     ),
                                                     sizedBoxDefault(),
@@ -814,13 +812,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       onItemTap: (item) {
                                                         // Handle item tap
                                                       }, onSeeAllTap: () {
-                                                      productControl.beveragesList[0].categoryID.toString();
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.beveragesList[0].categoryID.toString(),
+                                                        "categoryName": 'Beverages'});
 
                                                     },
                                                     ),
                                                     const SizedBox(
                                                       height: 25,
                                                     ),
+
                                                     Row(
                                                       children: [
                                                         Expanded(
@@ -1098,7 +1099,7 @@ class CategoryItemWidget extends StatelessWidget {
                 fontSize: 12,
                 color: backgroundColor,
                 overflow: TextOverflow.ellipsis,
-                fontFamily: AppThemeData.regular,
+                fontFamily: AppThemeData.bold,
               ),
             )
           ],

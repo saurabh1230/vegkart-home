@@ -318,6 +318,20 @@ class FireStoreUtils {
     return category;
   }
 
+  static Future<List<ProductModel>?> getProductListByOffersId(String categoryId) async {
+    List<ProductModel> category = [];
+
+    await fireStore.collection(CollectionName.special_offers).where('categoryID', isEqualTo: categoryId).where('publish', isEqualTo: true).get().then((value) {
+      for (var element in value.docs) {
+        ProductModel productModel = ProductModel.fromJson(element.data());
+        category.add(productModel);
+      }
+    }).catchError((error) {
+      log(error.toString());
+    });
+    return category;
+  }
+
   static Future<List<FavouriteItemModel>?> getFavouritesProductList(String userId) async {
     List<FavouriteItemModel> listFavourites = [];
     await fireStore.collection(CollectionName.favouriteItem).where('user_id', isEqualTo: userId).get().then((value) {

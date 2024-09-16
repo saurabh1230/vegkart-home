@@ -118,7 +118,9 @@ import 'package:ebasket_customer/theme/responsive.dart';
 import 'package:ebasket_customer/widgets/all_product_list.dart';
 import 'package:ebasket_customer/widgets/network_image_widget.dart';
 
-class HorizontalProductWidget extends StatelessWidget {
+import 'todays_special_list_components.dart';
+
+class TodaySpecialOfferWidget extends StatelessWidget {
   final String title;
   final Function() onSeeAllTap;
 
@@ -126,7 +128,7 @@ class HorizontalProductWidget extends StatelessWidget {
   final List<dynamic> items; // Replace `dynamic` with the actual type of your items
   final Function(dynamic) onItemTap; // Callback for item tap
 
-  const HorizontalProductWidget({
+  const TodaySpecialOfferWidget({
     super.key,
     required this.title,
     required this.items,
@@ -149,19 +151,19 @@ class HorizontalProductWidget extends StatelessWidget {
                 fontFamily: AppThemeData.bold,
               ),
             ),
-            InkWell(
-              onTap: onSeeAllTap,
-              child: Text(
-                'View All',
-                style: montserratRegular.copyWith(fontSize: Dimensions.fontSize15,
-                color: appColor),
-              ),
-            ),
+            // InkWell(
+            //   onTap: onSeeAllTap,
+            //   child: Text(
+            //     'View All',
+            //     style: montserratRegular.copyWith(fontSize: Dimensions.fontSize15,
+            //         color: appColor),
+            //   ),
+            // ),
           ],
         ),
         sizedBox10(),
         SizedBox(
-          height: Responsive.height(30, context),
+          height: Responsive.height(20, context),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items.length ,
@@ -171,8 +173,8 @@ class HorizontalProductWidget extends StatelessWidget {
               return InkWell(
                 onTap: () => onItemTap(item),
                 child: SizedBox(
-                  width: Responsive.width(40, context), // Adjust width as per your design
-                  child: HorizontalProductListComponent(
+                  width: Responsive.width(70, context), // Adjust width as per your design
+                  child: TodaySpecialListComponents(
                     trustedBrandItem: item,
                   ),
                 ),

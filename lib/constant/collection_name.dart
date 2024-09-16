@@ -4,6 +4,7 @@ class CollectionName {
   static const String setting = 'settings';
   static const String currency = 'currencies';
   static const String products = 'vendor_products';
+  static const String special_offers = 'special_offers';
   static const String brands = 'brands';
   static const String favouriteItem = "favorite_item";
   static const String tax = "tax";

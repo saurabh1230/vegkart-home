@@ -20,6 +20,7 @@ class ProductListController extends GetxController {
   RxList<ProductModel> greenVegetablesList = <ProductModel>[].obs;
   RxList<ProductModel> beveragesList = <ProductModel>[].obs;
   RxList<ProductModel> bakeryList = <ProductModel>[].obs;
+  RxList<ProductModel> bestOfferList = <ProductModel>[].obs;
   RxList<String> selectedBrandId = <String>[].obs;
 
   RxList<CartProduct> cartProducts = <CartProduct>[].obs;
@@ -52,6 +53,7 @@ class ProductListController extends GetxController {
     fetchGreenVegetablesListProducts();
     fetchBeveragesListProducts();
     fetchBakeryListProducts();
+    getBestOfferProducts();
     print(' Product controller id ${categoryId}');
   }
 
@@ -257,6 +259,21 @@ class ProductListController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<void> getBestOfferProducts() async {
+    isLoading.value = true;  // Indicate that data fetching is in progress
+    try {
+      final value = await FireStoreUtils.getBestOfferProducts();  // Fetch best offer products
+      if (value != null) {
+        bestOfferList.value = value;  // Assign the products to the productList// Also assign to search list for easy filtering
+      }
+    } catch (error) {
+      print('Error fetching best offer products: $error');
+    } finally {
+      isLoading.value = false;  // Indicate that loading has finished
+    }
+  }
+
 
   Future<void> getFavoriteData() async {
     try {

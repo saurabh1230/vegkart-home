@@ -124,11 +124,12 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                             trustedBrandItem.value.name.toString(),
                                             textAlign: TextAlign.start,
                                             maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                               color: AppThemeData.black,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
-                                              fontFamily: AppThemeData.regular,
+                                              fontFamily: AppThemeData.bold,
                                             ),
                                           ),
                                           Padding(
@@ -136,6 +137,8 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                             child: Text(
                                               widget.trustedBrandItem.qty_pack.toString(),
                                               textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 color: AppThemeData.black.withOpacity(0.50),
                                                 fontSize: 14,
@@ -148,6 +151,8 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                               ? Padding(
                                                   padding: const EdgeInsets.only(top: 4.0),
                                                   child: Text(
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                     Constant.amountShow(amount: widget.trustedBrandItem.price),
                                                     style: const TextStyle(
                                                         color: AppThemeData.black,
@@ -162,6 +167,8 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                                   child: Row(
                                                     children: [
                                                       Text(
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
                                                         Constant.amountShow(
                                                             amount: Constant.calculateDiscount(amount: widget.trustedBrandItem.price!, discount: widget.trustedBrandItem.discount!)
                                                                 .toString()),
@@ -187,46 +194,46 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                                     ],
                                                   ),
                                                 ),
-                                          if (trustedBrandItem.value.itemAttributes != null)
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 4.0),
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  padding: EdgeInsets.zero,
-                                                  itemCount: trustedBrandItem.value.itemAttributes!.attributes!.length,
-                                                  itemBuilder: (context, index) {
-                                                    return ListView.builder(
-                                                        shrinkWrap: true,
-                                                        padding: EdgeInsets.zero,
-                                                        itemCount: trustedBrandItem.value.itemAttributes!.attributes![index].attributeOptions!.length,
-                                                        itemBuilder: (context, i) {
-                                                          return ListView.builder(
-                                                              shrinkWrap: true,
-                                                              padding: EdgeInsets.zero,
-                                                              itemCount: trustedBrandItem.value.itemAttributes!.variants!.length,
-                                                              itemBuilder: (context, index1) {
-                                                                Variants variants = trustedBrandItem.value.itemAttributes!.variants![index1];
-                                                                return (trustedBrandItem.value.itemAttributes!.attributes![index].attributeOptions![i].toString() ==
-                                                                        variants.variantSku.toString())
-                                                                    ? InkWell(
-                                                                        onTap: () async {},
-                                                                        child: Text(
-                                                                          " ${Constant.amountShow(amount: variants.variantPrice.toString())} for ${variants.variantSku.toString()}",
-                                                                          textAlign: TextAlign.start,
-                                                                          maxLines: 1,
-                                                                          style: TextStyle(
-                                                                              color: appColor,
-                                                                              fontSize: 10,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              fontFamily: AppThemeData.bold,
-                                                                              fontWeight: FontWeight.w700),
-                                                                        ),
-                                                                      )
-                                                                    : Container();
-                                                              });
-                                                        });
-                                                  }),
-                                            ),
+                                          // if (trustedBrandItem.value.itemAttributes != null)
+                                          //   Padding(
+                                          //     padding: const EdgeInsets.only(top: 4.0),
+                                          //     child: ListView.builder(
+                                          //         shrinkWrap: true,
+                                          //         padding: EdgeInsets.zero,
+                                          //         itemCount: trustedBrandItem.value.itemAttributes!.attributes!.length,
+                                          //         itemBuilder: (context, index) {
+                                          //           return ListView.builder(
+                                          //               shrinkWrap: true,
+                                          //               padding: EdgeInsets.zero,
+                                          //               itemCount: trustedBrandItem.value.itemAttributes!.attributes![index].attributeOptions!.length,
+                                          //               itemBuilder: (context, i) {
+                                          //                 return ListView.builder(
+                                          //                     shrinkWrap: true,
+                                          //                     padding: EdgeInsets.zero,
+                                          //                     itemCount: trustedBrandItem.value.itemAttributes!.variants!.length,
+                                          //                     itemBuilder: (context, index1) {
+                                          //                       Variants variants = trustedBrandItem.value.itemAttributes!.variants![index1];
+                                          //                       return (trustedBrandItem.value.itemAttributes!.attributes![index].attributeOptions![i].toString() ==
+                                          //                               variants.variantSku.toString())
+                                          //                           ? InkWell(
+                                          //                               onTap: () async {},
+                                          //                               child: Text(
+                                          //                                 " ${Constant.amountShow(amount: variants.variantPrice.toString())} for ${variants.variantSku.toString()}",
+                                          //                                 textAlign: TextAlign.start,
+                                          //                                 maxLines: 1,
+                                          //                                 style: TextStyle(
+                                          //                                     color: appColor,
+                                          //                                     fontSize: 10,
+                                          //                                     overflow: TextOverflow.ellipsis,
+                                          //                                     fontFamily: AppThemeData.bold,
+                                          //                                     fontWeight: FontWeight.w700),
+                                          //                               ),
+                                          //                             )
+                                          //                           : Container();
+                                          //                     });
+                                          //               });
+                                          //         }),
+                                          //   ),
                                         ],
                                       ),
                                     )

@@ -80,8 +80,8 @@ class ViewAllCategoryProductScreen extends StatelessWidget {
                           controller.productSearchList.isEmpty
                               ? Expanded(child: Constant.emptyView(image: "assets/icons/no_record.png", text: "Empty".tr, description: "You don’t have any products at this time"))
                               : Expanded(
-                                  child: SizedBox(
-                                    height: Responsive.height(65, context),
+                                  child: Container(
+                                    // height: Responsive.height(65, context),
                                     child: GridView.builder(
                                       itemCount: controller.productSearchList.length,
                                       shrinkWrap: true,
@@ -97,7 +97,7 @@ class ViewAllCategoryProductScreen extends StatelessWidget {
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 8,
                                         mainAxisSpacing: 12,
-                                        childAspectRatio: (2 / 4.3),
+                                        childAspectRatio: (1 / 1.9),
                                       ),
                                     ),
                                   ),

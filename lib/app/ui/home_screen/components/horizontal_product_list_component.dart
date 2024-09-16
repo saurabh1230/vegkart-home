@@ -131,7 +131,7 @@ class _HorizontalProductListComponentState extends State<HorizontalProductListCo
                                               color: AppThemeData.black,
                                               fontSize: 10,
                                               fontWeight: FontWeight.w400,
-                                              fontFamily: AppThemeData.regular,
+                                              fontFamily: AppThemeData.bold,
                                             ),
                                           ),
                                           Padding(

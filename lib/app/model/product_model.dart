@@ -23,6 +23,7 @@ class ProductModel {
   VariantInfo? variantInfo;
   String? brandID;
 
+
   String? shelf_life;
   String? country;
   String? seller_fssai;
@@ -35,6 +36,7 @@ class ProductModel {
   bool? is_best_offer;
   bool? is_establish_brand;
   String? unit;
+  String? time_remaining;
 
   ProductModel({
     this.id,
@@ -67,6 +69,7 @@ class ProductModel {
     this.is_best_offer = false,
     this.is_establish_brand = false,
     this.unit,
+    this.time_remaining
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
@@ -104,6 +107,7 @@ class ProductModel {
     is_best_offer = json['is_best_offer'] ?? true;
     is_establish_brand = json['is_establish_brand'] ?? true;
     unit = json['unit'];
+    time_remaining = json['time_remaining'];
   }
 
   Map<String, dynamic> toJson() {
@@ -142,6 +146,7 @@ class ProductModel {
     data['is_best_offer'] = is_best_offer;
     data['is_establish_brand'] = is_establish_brand;
     data['unit'] = unit;
+    data['time_remaining'] = time_remaining;
     return data;
   }
 }
