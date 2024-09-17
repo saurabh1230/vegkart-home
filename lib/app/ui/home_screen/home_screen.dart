@@ -3,6 +3,7 @@ import 'package:ebasket_customer/app/controller/view_all_product_controller.dart
 import 'package:ebasket_customer/app/model/address_model.dart';
 import 'package:ebasket_customer/app/model/todays_special_model.dart';
 import 'package:ebasket_customer/app/ui/delivery_address_screen/delivery_address_screen.dart';
+import 'package:ebasket_customer/app/ui/home_screen/components/home_shimmer.dart';
 import 'package:ebasket_customer/app/ui/home_screen/components/horizontal_component_widget.dart';
 import 'package:ebasket_customer/app/ui/home_screen/components/todays_sepcial_offer_widget.dart';
 import 'package:ebasket_customer/app/ui/login_screen/login_screen.dart';
@@ -575,13 +576,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           controller.isLoading.value
                               ? Constant.selectedPosition.id != null
-                                  ? Constant.loader()
-                                  : Center(child: CircularProgressIndicator())
+                                  ? HomeShimmer()
+                                  : HomeShimmer()
                               : controller.bestOfferList.isEmpty ||
                                       controller.productList.isEmpty
                                   ? EmptyData()
-                                  : Column(
-                                      children: [
+                                  :
+                          Column(
+                            children: [
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 0, vertical: 0),
@@ -818,87 +820,102 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                                     },
                                                     ),
+                                                    sizedBoxDefault(),
+                                                    HorizontalProductWidget(
+                                                      title: 'Dairy Products',
+                                                      items:
+                                                      productControl.dairyProductList,
+                                                      // Pass the actual list of items here
+                                                      onItemTap: (item) {
+                                                        // Handle item tap
+                                                      }, onSeeAllTap: () {
+                                                      Get.to(const ViewAllCategoryProductScreen(), arguments:
+                                                      {"categoryId": productControl.dairyProductList[0].categoryID.toString(),
+                                                        "categoryName": 'Dairy Products'});
+
+                                                    },
+                                                    ),
                                                     const SizedBox(
                                                       height: 25,
                                                     ),
 
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            "Established Brands".tr,
-                                                            style: TextStyle(
-                                                                color:
-                                                                    AppThemeData.black,
-                                                                fontSize: 18,
-                                                                fontFamily: AppThemeData
-                                                                    .semiBold),
-                                                          ),
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            Get.to(const ViewAllBrandScreen(),
-                                                                    arguments: {
-                                                                  "type": 'brand'
-                                                                })!
-                                                                .then((value) {
-                                                              controller
-                                                                  .getFavoriteData();
-                                                            });
-                                                          },
-                                                          child: Text(
-                                                            "View All".tr,
-                                                            style: TextStyle(
-                                                                color: AppThemeData
-                                                                    .groceryAppDarkBlue,
-                                                                fontSize: 12,
-                                                                fontFamily: AppThemeData
-                                                                    .semiBold),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Container(
-                                                      height: Responsive.height(
-                                                          38.3, context),
-                                                      alignment: Alignment.centerLeft,
-                                                      child: controller
-                                                              .establishedProductList
-                                                              .isEmpty
-                                                          ? Constant.showEmptyView(
-                                                              message:
-                                                                  "No Established Brands Found"
-                                                                      .tr)
-                                                          : ListView.builder(
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.horizontal,
-                                                              padding: EdgeInsets.zero,
-                                                              itemCount: controller
-                                                                          .establishedProductList
-                                                                          .length >=
-                                                                      8
-                                                                  ? 8
-                                                                  : controller
-                                                                      .establishedProductList
-                                                                      .length,
-                                                              itemBuilder:
-                                                                  (context, index) {
-                                                                ProductModel
-                                                                    establishedBrandItem =
-                                                                    controller
-                                                                            .establishedProductList[
-                                                                        index];
-
-                                                                return EstablishedBrandItemWidget(
-                                                                  establishedBrandItem:
-                                                                      establishedBrandItem,
-                                                                );
-                                                              }),
-                                                    ),
+                                                    // Row(
+                                                    //   children: [
+                                                    //     Expanded(
+                                                    //       child: Text(
+                                                    //         "Established Brands".tr,
+                                                    //         style: TextStyle(
+                                                    //             color:
+                                                    //                 AppThemeData.black,
+                                                    //             fontSize: 18,
+                                                    //             fontFamily: AppThemeData
+                                                    //                 .semiBold),
+                                                    //       ),
+                                                    //     ),
+                                                    //     InkWell(
+                                                    //       onTap: () {
+                                                    //         Get.to(const ViewAllBrandScreen(),
+                                                    //                 arguments: {
+                                                    //               "type": 'brand'
+                                                    //             })!
+                                                    //             .then((value) {
+                                                    //           controller
+                                                    //               .getFavoriteData();
+                                                    //         });
+                                                    //       },
+                                                    //       child: Text(
+                                                    //         "View All".tr,
+                                                    //         style: TextStyle(
+                                                    //             color: AppThemeData
+                                                    //                 .groceryAppDarkBlue,
+                                                    //             fontSize: 12,
+                                                    //             fontFamily: AppThemeData
+                                                    //                 .semiBold),
+                                                    //       ),
+                                                    //     )
+                                                    //   ],
+                                                    // ),
+                                                    // const SizedBox(
+                                                    //   height: 10,
+                                                    // ),
+                                                    // Container(
+                                                    //   height: Responsive.height(
+                                                    //       38.3, context),
+                                                    //   alignment: Alignment.centerLeft,
+                                                    //   child: controller
+                                                    //           .establishedProductList
+                                                    //           .isEmpty
+                                                    //       ? Constant.showEmptyView(
+                                                    //           message:
+                                                    //               "No Established Brands Found"
+                                                    //                   .tr)
+                                                    //       : ListView.builder(
+                                                    //           shrinkWrap: true,
+                                                    //           scrollDirection:
+                                                    //               Axis.horizontal,
+                                                    //           padding: EdgeInsets.zero,
+                                                    //           itemCount: controller
+                                                    //                       .establishedProductList
+                                                    //                       .length >=
+                                                    //                   8
+                                                    //               ? 8
+                                                    //               : controller
+                                                    //                   .establishedProductList
+                                                    //                   .length,
+                                                    //           itemBuilder:
+                                                    //               (context, index) {
+                                                    //             ProductModel
+                                                    //                 establishedBrandItem =
+                                                    //                 controller
+                                                    //                         .establishedProductList[
+                                                    //                     index];
+                                                    //
+                                                    //             return EstablishedBrandItemWidget(
+                                                    //               establishedBrandItem:
+                                                    //                   establishedBrandItem,
+                                                    //             );
+                                                    //           }),
+                                                    // ),
                                                   ],
                                                 ),
                                               ),
