@@ -15,8 +15,8 @@ class SplashScreen extends StatelessWidget {
           body: Container(
             child: Center(
               child: Image.asset(
-                "assets/icons/ic_splash_logo.png",
-                height: 220,
+                "assets/icons/ic_logo_with_text.png",
+                height: 190,
                 // color: Colors.white,
               ),
             ),
