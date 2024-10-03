@@ -262,7 +262,7 @@ class _HorizontalProductListComponentState extends State<HorizontalProductListCo
                                             controller.listFav.add(favouriteModel);
                                           }
                                         } else {
-                                          Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                          Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                         }
                                       });
                                     },
@@ -299,7 +299,7 @@ class _HorizontalProductListComponentState extends State<HorizontalProductListCo
                               setState(() {});
                               addToCard(trustedBrandItem.value, true, controller);
                             } else {
-                              Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                              Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                             }
                           },)
 
@@ -311,7 +311,7 @@ class _HorizontalProductListComponentState extends State<HorizontalProductListCo
                       //       setState(() {});
                       //       addToCard(trustedBrandItem.value, true, controller);
                       //     } else {
-                      //       Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                      //       Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                       //     }
                       //   },
                       //   child: Padding(

@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
                                   controller.getData();
                                 });
                               } else {
-                                Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                               }
                             },
                             child: profileView(title: "Edit Profile".tr, image: "assets/icons/ic_edit_profile.svg")),
@@ -142,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
                               if (controller.userModel.value.id != null) {
                                 Get.to(const MyOrderListScreen(), transition: Transition.rightToLeftWithFade);
                               } else {
-                                Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                               }
                             },
                             child: profileView(title: "My Orders".tr, image: "assets/icons/ic_my_orders.svg")),

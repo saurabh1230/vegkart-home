@@ -234,7 +234,6 @@ class HomeController extends GetxController {
       ),
     ];
 
-    // Loop through the list and add each banner to Firestore
     for (var banner in banners) {
       await addBannerToFirestore(banner);
     }

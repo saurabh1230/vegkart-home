@@ -45,7 +45,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   //               controller.getData();
                   //             });
                   //           } else {
-                  //             Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                  //             Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                   //           }
                   //         },
                   //         child: SvgPicture.asset(
@@ -811,7 +811,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               }
                             }
                           } else {
-                            Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                            Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                           }
                         },
                         textColor: AppThemeData.white,
@@ -965,7 +965,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         controller.getData();
                                       });
                                     } else {
-                                      Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                      Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                     }
                                   },
                                   child: SvgPicture.asset(

@@ -12,6 +12,7 @@ import 'package:ebasket_customer/app/ui/search_screen/search_screen.dart';
 import 'package:ebasket_customer/services/helper.dart';
 import 'package:ebasket_customer/services/show_toast_dialog.dart';
 import 'package:ebasket_customer/utils/dimensions.dart';
+import 'package:ebasket_customer/utils/images.dart';
 import 'package:ebasket_customer/utils/sizeboxes.dart';
 import 'package:ebasket_customer/utils/styles.dart';
 import 'package:ebasket_customer/utils/theme/light_theme.dart';
@@ -55,8 +56,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
@@ -183,8 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                sizedBox40(),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     GestureDetector(
                                       behavior: HitTestBehavior.translucent,
@@ -204,9 +201,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Theme.of(context).cardColor,
                                           fontSize: Dimensions.fontSize24),
                                     ),
-                                    if (double.parse(Constant.vendorRadius) >=
-                                        double.parse(Constant.distance))
-                                      Expanded(
+                                    // if (double.parse(Constant.vendorRadius) >=
+                                    //     double.parse(Constant.distance))
+                                      Flexible(
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -228,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         });
                                                       } else {
                                                         Get.to(
-                                                            const LoginScreen(),
+                                                             LoginScreen(),
                                                             transition: Transition
                                                                 .rightToLeftWithFade);
                                                       }
@@ -308,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         transition: Transition
                                                             .rightToLeftWithFade);
                                                   } else {
-                                                    Get.to(const LoginScreen(),
+                                                    Get.to( LoginScreen(),
                                                         transition: Transition
                                                             .rightToLeftWithFade);
                                                   }

@@ -263,7 +263,7 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                             controller.listFav.add(favouriteModel);
                                           }
                                         } else {
-                                          Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                          Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                         }
                                       });
                                     },
@@ -295,7 +295,7 @@ class _AllProductListWidgetState extends State<AllProductListWidget> {
                                   setState(() {});
                                   addToCard(trustedBrandItem.value, true, controller);
                                 } else {
-                                  Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                  Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                 }
                               },
                               child: Padding(

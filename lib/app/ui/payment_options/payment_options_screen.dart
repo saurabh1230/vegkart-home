@@ -42,46 +42,46 @@ class PaymentOptionsScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                Visibility(
-                                  visible: controller.paymentModel.value.cash != null && controller.paymentModel.value.cash!.enable == true,
-                                  child: cardDecoration(controller, controller.paymentModel.value.cash!.name.toString(), controller.paymentModel.value.cash!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.wallet != null && controller.paymentModel.value.wallet!.enable == true,
-                                  child: cardDecoration(controller, controller.paymentModel.value.wallet!.name.toString(), controller.paymentModel.value.wallet!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.strip != null && controller.paymentModel.value.strip!.enable == true,
-                                  child: cardDecoration(controller, controller.paymentModel.value.strip!.name.toString(), controller.paymentModel.value.strip!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.paypal != null && controller.paymentModel.value.paypal!.enable == true,
-                                  child: cardDecoration(controller, controller.paymentModel.value.paypal!.name.toString(), controller.paymentModel.value.paypal!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.payStack != null && controller.paymentModel.value.payStack!.enable == true,
-                                  child:
-                                      cardDecoration(controller, controller.paymentModel.value.payStack!.name.toString(), controller.paymentModel.value.payStack!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.mercadoPago != null && controller.paymentModel.value.mercadoPago!.enable == true,
-                                  child: cardDecoration(
-                                      controller, controller.paymentModel.value.mercadoPago!.name.toString(), controller.paymentModel.value.mercadoPago!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.flutterWave != null && controller.paymentModel.value.flutterWave!.enable == true,
-                                  child: cardDecoration(
-                                      controller, controller.paymentModel.value.flutterWave!.name.toString(), controller.paymentModel.value.flutterWave!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.payfast != null && controller.paymentModel.value.payfast!.enable == true,
-                                  child:
-                                      cardDecoration(controller, controller.paymentModel.value.payfast!.name.toString(), controller.paymentModel.value.payfast!.image.toString()),
-                                ),
-                                Visibility(
-                                  visible: controller.paymentModel.value.paytm != null && controller.paymentModel.value.paytm!.enable == true,
-                                  child: cardDecoration(controller, controller.paymentModel.value.paytm!.name.toString(), controller.paymentModel.value.paytm!.image.toString()),
-                                ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.cash != null && controller.paymentModel.value.cash!.enable == true,
+                                //   child: cardDecoration(controller, controller.paymentModel.value.cash!.name.toString(), controller.paymentModel.value.cash!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.wallet != null && controller.paymentModel.value.wallet!.enable == true,
+                                //   child: cardDecoration(controller, controller.paymentModel.value.wallet!.name.toString(), controller.paymentModel.value.wallet!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.strip != null && controller.paymentModel.value.strip!.enable == true,
+                                //   child: cardDecoration(controller, controller.paymentModel.value.strip!.name.toString(), controller.paymentModel.value.strip!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.paypal != null && controller.paymentModel.value.paypal!.enable == true,
+                                //   child: cardDecoration(controller, controller.paymentModel.value.paypal!.name.toString(), controller.paymentModel.value.paypal!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.payStack != null && controller.paymentModel.value.payStack!.enable == true,
+                                //   child:
+                                //       cardDecoration(controller, controller.paymentModel.value.payStack!.name.toString(), controller.paymentModel.value.payStack!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.mercadoPago != null && controller.paymentModel.value.mercadoPago!.enable == true,
+                                //   child: cardDecoration(
+                                //       controller, controller.paymentModel.value.mercadoPago!.name.toString(), controller.paymentModel.value.mercadoPago!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.flutterWave != null && controller.paymentModel.value.flutterWave!.enable == true,
+                                //   child: cardDecoration(
+                                //       controller, controller.paymentModel.value.flutterWave!.name.toString(), controller.paymentModel.value.flutterWave!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.payfast != null && controller.paymentModel.value.payfast!.enable == true,
+                                //   child:
+                                //       cardDecoration(controller, controller.paymentModel.value.payfast!.name.toString(), controller.paymentModel.value.payfast!.image.toString()),
+                                // ),
+                                // Visibility(
+                                //   visible: controller.paymentModel.value.paytm != null && controller.paymentModel.value.paytm!.enable == true,
+                                //   child: cardDecoration(controller, controller.paymentModel.value.paytm!.name.toString(), controller.paymentModel.value.paytm!.image.toString()),
+                                // ),
                                 Visibility(
                                   visible: controller.paymentModel.value.razorpay != null && controller.paymentModel.value.razorpay!.enable == true,
                                   child:

@@ -71,8 +71,8 @@ class NotificationService {
     try {
       AndroidNotificationChannel channel = const AndroidNotificationChannel(
         '0',
-        'ebasket-customerapp',
-        description: 'Show eBasket Notification',
+        'vegkaart-customerapp',
+        description: 'Show vegkaart Notification',
         importance: Importance.max,
       );
       AndroidNotificationDetails notificationDetails =

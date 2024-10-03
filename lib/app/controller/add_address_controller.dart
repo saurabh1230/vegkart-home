@@ -10,7 +10,7 @@ class AddAddressController extends GetxController {
   Rx<TextEditingController> landmark = TextEditingController().obs;
   Rx<TextEditingController> locality = TextEditingController().obs;
   Rx<TextEditingController> pinCodeController = TextEditingController().obs;
-  RxList saveAsList = ['Home', 'Work', 'Hotel', 'other'].obs;
+  RxList saveAsList = ['Home', 'Work', 'Hotel', 'Other'].obs;
   RxString selectedSaveAs = "Home".obs;
 
   Rx<UserLocation> userLocation = UserLocation().obs;
@@ -34,10 +34,10 @@ class AddAddressController extends GetxController {
     await FireStoreUtils.getUserProfile(FireStoreUtils.getCurrentUid()).then((value) {
       if (value != null) {
         userModel.value = value;
-
         update();
       }
     });
+
     shippingAddress.value = userModel.value.shippingAddress!;
     if (argumentData != null) {
       index.value = argumentData['index'];
@@ -51,4 +51,7 @@ class AddAddressController extends GetxController {
     }
     update();
   }
+
+
+
 }

@@ -18,7 +18,7 @@ class SplashController extends GetxController {
     if (isLogin == true) {
       Get.offAll(const DashBoardScreen(), transition: Transition.rightToLeftWithFade);
     } else {
-      Get.offAll(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+      Get.offAll( LoginScreen(), transition: Transition.rightToLeftWithFade);
     }
   }
 }

@@ -59,7 +59,7 @@ class SettingScreen extends StatelessWidget {
                     if (Constant.currentUser.id != null) {
                       Get.to(const WalletScreen(), transition: Transition.rightToLeftWithFade);
                     } else {
-                      Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                      Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                     }
                   },
                   child: settingView(
@@ -123,7 +123,7 @@ class SettingScreen extends StatelessWidget {
               InkWell(
                   onTap: () {
                     if (Constant.currentUser.id == null) {
-                      Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                      Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                     } else {
                       logoutBottomSheet(context);
                     }
@@ -220,7 +220,7 @@ class SettingScreen extends StatelessWidget {
                               await FirebaseAuth.instance.signOut();
                               Constant.currentUser = UserModel();
                               Constant.selectedPosition = AddressModel();
-                              Get.to(const LoginScreen());
+                              Get.to( LoginScreen());
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

@@ -27,7 +27,6 @@ const String appName = 'Vegkaart';
 class Constant {
 
   static String searchHistoryJson = "assets/json/gbest_search_history.json";
-
   static String USER_ROLE_CUSTOMER = 'customer';
   static String USER_ROLE_DRIVER = 'driver';
   static String senderId = '';
@@ -44,7 +43,6 @@ class Constant {
   static String globalUrl = "https://ebasket.siswebapp.com/";
   static String vendorRadius = "0";
   static String distance = "0";
-
   static String minorderAmount = "";
   static String minimumAmountToDeposit = "0.0";
   static String mapKey = "AIzaSyBNB2kmkXSOtldNxPdJ6vPs_yaiXBG6SSU";

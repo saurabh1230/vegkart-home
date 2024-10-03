@@ -67,13 +67,10 @@ class SignupController extends GetxController {
 
         UserModel user = UserModel(
           fullName: fullNameController.value.text,
-          //businessAddress: businessAddressController.value.text,
-         // pinCode: pinCodeController.value.text,
           countryCode: countryCode.value.text,
           phoneNumber: mobileNumberController.value.text,
           email: emailAddressController.value.text,
           role: Constant.USER_ROLE_CUSTOMER,
-        //  location: locationLatLng.value,
           shippingAddress: shippingAddressList,
         );
 

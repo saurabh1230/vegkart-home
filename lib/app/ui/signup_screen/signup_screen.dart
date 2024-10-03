@@ -1,4 +1,7 @@
 import 'package:ebasket_customer/app/model/address_model.dart';
+import 'package:ebasket_customer/utils/images.dart';
+import 'package:ebasket_customer/utils/sizeboxes.dart';
+import 'package:ebasket_customer/widgets/custom_button_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +31,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return GetBuilder(
         init: SignupController(),
@@ -56,9 +59,8 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
+
+                      Center(child: Image.asset(Images.logo,height: 200,)),
                       TextFieldWidget(
                         controller: controller.fullNameController.value,
                         hintText: "Full Name".tr,
@@ -82,83 +84,67 @@ class SignupScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          const staticAddressData = {
-                            "id": "33eILoLjJld2zpw6nIYEa7mqWrc2",
-                            "address": "1300-5, Relief Rd, Nagar Sheths Vando, Gheekanta, Bhadra, Ahmedabad, Gujarat 380001, India",
-                            "landmark": "Near City Center",
-                            "locality": "Ahmedabad",
-                            "pinCode": "380001",
-                            "location": {
-                              "latitude": 22.991724,
-                              "longitude": 72.526444
-                            },
-                            "isDefault": true,
-                            "addressAs": "BusinessAddress"
-                          };
+                          AddressModel addressModel = AddressModel();
+                          checkPermission(
+                            () async {
+                              try {
+                                await Geolocator.requestPermission();
 
-                          // Create an instance of AddressModel from static data
-                          final address = AddressModel.fromJson(staticAddressData);
-                          // AddressModel addressModel = AddressModel();
-                          // checkPermission(
-                          //   () async {
-                          //     try {
-                          //       await Geolocator.requestPermission();
-                          //
-                          //       await Geolocator.getCurrentPosition();
-                          //
-                          //       Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //           builder: (context) => PlacePicker(
-                          //             apiKey: Constant.mapKey,
-                          //             onPlacePicked: (result) {
-                          //               controller.businessAddressController.value.text = result.formattedAddress.toString();
-                          //               // controller.locationLatLng.value = LocationLatLng(latitude: result.geometry!.location.lat, longitude: result.geometry!.location.lng);
-                          //               addressModel.id = Uuid().v4();
-                          //               addressModel.locality = result.formattedAddress!.toString();
-                          //               addressModel.location = UserLocation(latitude: result.geometry!.location.lat, longitude: result.geometry!.location.lng);
-                          //               for (int i = 0; i < result.addressComponents!.length; i++) {
-                          //                 if (result.addressComponents![i].types.contains('postal_code')) {
-                          //                   addressModel.pinCode = result.addressComponents![i].longName;
-                          //                 }
-                          //               }
-                          //               addressModel.isDefault = true;
-                          //               Constant.selectedPosition = addressModel;
-                          //               controller.shippingAddressList!.add(addressModel);
-                          //
-                          //               Get.back();
-                          //             },
-                          //             initialPosition: const LatLng(-33.8567844, 151.213108),
-                          //             useCurrentLocation: true,
-                          //             selectInitialPosition: true,
-                          //             usePinPointingSearch: true,
-                          //             usePlaceDetailSearch: true,
-                          //             zoomGesturesEnabled: true,
-                          //             zoomControlsEnabled: true,
-                          //             initialMapType: MapType.terrain,
-                          //             resizeToAvoidBottomInset: false, // only works in page mode, less flickery, remove if wrong offsets
-                          //           ),
-                          //         ),
-                          //       );
-                          //     } catch (e) {
-                          //       await placemarkFromCoordinates(19.228825, 72.854118).then((valuePlaceMaker) {
-                          //         Placemark placeMark = valuePlaceMaker[0];
-                          //
-                          //         String currentLocation =
-                          //             "${placeMark.name}, ${placeMark.subLocality}, ${placeMark.locality}, ${placeMark.administrativeArea}, ${placeMark.postalCode}, ${placeMark.country}";
-                          //         controller.businessAddressController.value.text = currentLocation;
-                          //         // controller.locationLatLng.value = LocationLatLng(latitude: 19.228825, longitude: 72.854118);
-                          //         addressModel.id = Uuid().v4();
-                          //         addressModel.location = UserLocation(latitude: 19.228825, longitude: 72.854118);
-                          //         addressModel.locality = currentLocation;
-                          //         addressModel.pinCode = placeMark.postalCode.toString();
-                          //         addressModel.isDefault = true;
-                          //         Constant.selectedPosition = addressModel;
-                          //         controller.shippingAddressList!.add(addressModel);
-                          //       });
-                          //     }
-                          //   },
-                          // );
+                                await Geolocator.getCurrentPosition();
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlacePicker(
+                                      apiKey: 'AIzaSyBNB2kmkXSOtldNxPdJ6vPs_yaiXBG6SSU',
+                                      onPlacePicked: (result) {
+                                        controller.businessAddressController.value.text = result.formattedAddress.toString();
+                                        // controller.locationLatLng.value = LocationLatLng(latitude: result.geometry!.location.lat, longitude: result.geometry!.location.lng);
+                                        addressModel.id = Uuid().v4();
+                                        addressModel.locality = result.formattedAddress!.toString();
+                                        addressModel.location = UserLocation(latitude: result.geometry!.location.lat, longitude: result.geometry!.location.lng);
+                                        for (int i = 0; i < result.addressComponents!.length; i++) {
+                                          if (result.addressComponents![i].types.contains('postal_code')) {
+                                            addressModel.pinCode = result.addressComponents![i].longName;
+                                          }
+                                        }
+                                        addressModel.isDefault = true;
+                                        Constant.selectedPosition = addressModel;
+                                        controller.shippingAddressList!.add(addressModel);
+
+                                        Get.back();
+                                      },
+                                      initialPosition: const LatLng(-33.8567844, 151.213108),
+                                      useCurrentLocation: true,
+                                      selectInitialPosition: true,
+                                      usePinPointingSearch: true,
+                                      usePlaceDetailSearch: true,
+                                      zoomGesturesEnabled: true,
+                                      zoomControlsEnabled: true,
+                                      initialMapType: MapType.terrain,
+                                      resizeToAvoidBottomInset: false, // only works in page mode, less flickery, remove if wrong offsets
+                                    ),
+                                  ),
+                                );
+                              } catch (e) {
+                                await placemarkFromCoordinates(19.228825, 72.854118).then((valuePlaceMaker) {
+                                  Placemark placeMark = valuePlaceMaker[0];
+
+                                  String currentLocation =
+                                      "${placeMark.name}, ${placeMark.subLocality}, ${placeMark.locality}, ${placeMark.administrativeArea}, ${placeMark.postalCode}, ${placeMark.country}";
+                                  controller.businessAddressController.value.text = currentLocation;
+                                  // controller.locationLatLng.value = LocationLatLng(latitude: 19.228825, longitude: 72.854118);
+                                  addressModel.id = Uuid().v4();
+                                  addressModel.location = UserLocation(latitude: 19.228825, longitude: 72.854118);
+                                  addressModel.locality = currentLocation;
+                                  addressModel.pinCode = placeMark.postalCode.toString();
+                                  addressModel.isDefault = true;
+                                  Constant.selectedPosition = addressModel;
+                                  controller.shippingAddressList!.add(addressModel);
+                                });
+                              }
+                            },
+                          );
                         },
                         child: TextFieldWidget(
                           controller: controller.businessAddressController.value,
@@ -221,52 +207,64 @@ class SignupScreen extends StatelessWidget {
                           child: SvgPicture.asset("assets/icons/ic_email.svg", height: 22, width: 22),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: RoundedButtonGradiant(
-                          title: "Next".tr,
-                          icon: true,
-                          onPress: () async {
-                            if (controller.formKey.value.currentState!.validate()) {
-                              if (controller.fromOTP.value) {
-                                controller.registerUser();
-                              } else {
-                                controller.sendCode();
-                              }
-                            }
-                          },
-                        ),
-                      ),
+                      sizedBoxDefault(),
+                      CustomButtonWidget(buttonText: 'Next',
+                      onPressed: () {
+                        if (controller.formKey.value.currentState!.validate()) {
+                          if (controller.fromOTP.value) {
+                            controller.registerUser();
+                          } else {
+                            controller.sendCode();
+                          }
+                        }
+                      },),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 10),
+                      //   child: RoundedButtonGradiant(
+                      //     title: "Next".tr,
+                      //     icon: true,
+                      //     onPress: () async {
+                      //       if (controller.formKey.value.currentState!.validate()) {
+                      //         if (controller.fromOTP.value) {
+                      //           controller.registerUser();
+                      //         } else {
+                      //           controller.sendCode();
+                      //         }
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
                       Center(
-                        child: Text.rich(
-                          textAlign: TextAlign.center,
-                          TextSpan(
-                            text: "${'Already a member ?'.tr} ",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              fontFamily: AppThemeData.medium,
-                              color: AppThemeData.black,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Get.offAll(const LoginScreen());
-                                  },
-                                text: 'Login'.tr,
-                                style: TextStyle(
-                                  color: appColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  fontFamily: AppThemeData.medium,
-                                  decoration: TextDecoration.underline,
-                                ),
+                        child: TextButton(
+                          onPressed: () {
+                            Get.offAll( LoginScreen());
+                          },
+                          child: Text.rich(
+                            textAlign: TextAlign.center,
+                            TextSpan(
+                              text: "${'Already a member ?'.tr} ",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                fontFamily: AppThemeData.medium,
+                                color: AppThemeData.black,
                               ),
-                            ],
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: 'Login'.tr,
+                                  style: TextStyle(
+                                    color: appColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    fontFamily: AppThemeData.medium,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

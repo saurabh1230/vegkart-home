@@ -124,7 +124,7 @@ class _EstablishedBrandItemWidgetState extends State<EstablishedBrandItemWidget>
                                       homeController.listFav.add(favouriteModel);
                                     }
                                   } else {
-                                    Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                    Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                   }
                                 });
                               },
@@ -247,7 +247,7 @@ class _EstablishedBrandItemWidgetState extends State<EstablishedBrandItemWidget>
                         setState(() {});
                         addToCard(establishedBrandItem.value, true);
                       } else {
-                        Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                        Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                       }
                     },
                     child: Padding(

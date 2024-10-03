@@ -59,8 +59,13 @@ class AddAddressScreen extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             PlacePicker(
-                                              apiKey: Constant.mapKey,
+                                              apiKey: "AIzaSyBNB2kmkXSOtldNxPdJ6vPs_yaiXBG6SSU",
                                               onPlacePicked: (result) {
+                                                print("Place picked: ${result.formattedAddress}");
+                                                print("Latitude: ${result.geometry?.location.lat}");
+                                                print("Longitude: ${result.geometry?.location.lng}");
+                                                print("Address Components: ${result.addressComponents}");
+                                                log("Selected Address: ${result.formattedAddress}");
                                                 controller.locality.value.text = result.formattedAddress!.toString();
                                                 controller.userLocation.value = UserLocation(latitude: result.geometry!.location.lat, longitude: result.geometry!.location.lng);
                                                 log(result.toString());

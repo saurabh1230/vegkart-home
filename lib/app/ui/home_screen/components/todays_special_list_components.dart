@@ -207,7 +207,7 @@ class _TodaySpecialListComponentsState extends State<TodaySpecialListComponents>
                                                 setState(() {});
                                                 addToCard(trustedBrandItem.value, true, controller);
                                               } else {
-                                                Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                                Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                               }
                                             },)
                                               : Padding(
@@ -319,7 +319,7 @@ class _TodaySpecialListComponentsState extends State<TodaySpecialListComponents>
                                           controller.listFav.add(favouriteModel);
                                         }
                                       } else {
-                                        Get.to(const LoginScreen(), transition: Transition.rightToLeftWithFade);
+                                        Get.to( LoginScreen(), transition: Transition.rightToLeftWithFade);
                                       }
                                     });
                                   },
@@ -341,23 +341,23 @@ class _TodaySpecialListComponentsState extends State<TodaySpecialListComponents>
                       ),
                     ),
                   ),
-                  Positioned(left: 0,top: 0,right: 0,
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12)
-                            ),
-                            color: appColor,
-                          ),
-                          child: Text('${widget.trustedBrandItem.time_remaining.toString()} hours left',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                          color: AppThemeData.white,
-                          fontSize: Dimensions.fontSize14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: AppThemeData.regular,
-                            ),)))
+                  // Positioned(left: 0,top: 0,right: 0,
+                  //     child: Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.only(
+                  //             topLeft: Radius.circular(12),
+                  //             topRight: Radius.circular(12)
+                  //           ),
+                  //           color: appColor,
+                  //         ),
+                  //         child: Text('${widget.trustedBrandItem.time_remaining.toString()} hours left',
+                  //           textAlign: TextAlign.center,
+                  //           style: const TextStyle(
+                  //         color: AppThemeData.white,
+                  //         fontSize: Dimensions.fontSize14,
+                  //         fontWeight: FontWeight.w400,
+                  //         fontFamily: AppThemeData.regular,
+                  //           ),)))
                 ],
               ),
             ),

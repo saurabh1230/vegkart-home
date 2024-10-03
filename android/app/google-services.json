@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:802628591129:android:3e9e35623d178535979488",
+        "android_client_info": {
+          "package_name": "com.vegkaart.driverapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW1JwUTw_enzK2BjxuUB57Yscp93S3r98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:802628591129:android:568c52537a1c66f9979488",
         "android_client_info": {
           "package_name": "com.vegkart.customerapp"

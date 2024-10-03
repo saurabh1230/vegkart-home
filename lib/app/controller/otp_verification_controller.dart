@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ebasket_customer/app/model/notification_payload_model.dart';
 import 'package:ebasket_customer/app/model/user_model.dart';
 import 'package:ebasket_customer/app/ui/dashboard_screen/dashboard_screen.dart';
-import 'package:ebasket_customer/app/ui/otp_verification_screen/profile_ready_screen.dart';
 import 'package:ebasket_customer/app/ui/signup_screen/signup_screen.dart';
 import 'package:ebasket_customer/constant/constant.dart';
-import 'package:ebasket_customer/constant/send_notification.dart';
 import 'package:ebasket_customer/services/firebase_helper.dart';
 import 'package:ebasket_customer/services/notification_service.dart';
 import 'package:ebasket_customer/services/show_toast_dialog.dart';
@@ -49,18 +45,16 @@ class OtpVerificationController extends GetxController {
     ShowToastDialog.showLoader("Verify OTP".tr);
 
     auth.PhoneAuthCredential credential = auth.PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: pinController.value.text);
-    String fcmToken = await NotificationService.getToken();
+    // String fcmToken = await NotificationService.getToken();
     await auth.FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
 
       if (!value.additionalUserInfo!.isNewUser) {
         FireStoreUtils.userExistOrNot(value.user!.uid).then((userExit) async {
           if (userExit == true) {
             ShowToastDialog.closeLoader();
-
             UserModel? userModel = await FireStoreUtils.getUserProfile(value.user!.uid);
-
             if (userModel!.active == true) {
-              userModel.fcmToken = await NotificationService.getToken();
+              // userModel.fcmToken = await NotificationService.getToken();
               await FireStoreUtils.updateCurrentUser(userModel);
               Constant.currentUser = userModel;
               Get.offAll(const DashBoardScreen());
@@ -84,7 +78,7 @@ class OtpVerificationController extends GetxController {
             countryCode: user.value.countryCode,
             phoneNumber: user.value.phoneNumber,
             email: user.value.email,
-            fcmToken: fcmToken,
+            // fcmToken: fcmToken,
             role: Constant.USER_ROLE_CUSTOMER,
             shippingAddress: user.value.shippingAddress,
             id: value.user?.uid ?? '',
@@ -94,7 +88,6 @@ class OtpVerificationController extends GetxController {
 
         if (errorMessage == null) {
           Constant.currentUser = userModel;
-
           Get.offAll(const DashBoardScreen());
           ShowToastDialog.closeLoader();
         } else {
