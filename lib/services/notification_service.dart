@@ -75,8 +75,7 @@ class NotificationService {
         description: 'Show vegkaart Notification',
         importance: Importance.max,
       );
-      AndroidNotificationDetails notificationDetails =
-          AndroidNotificationDetails(channel.id, channel.name, channelDescription: 'your channel Description', importance: Importance.high, priority: Priority.high, ticker: 'ticker');
+      AndroidNotificationDetails notificationDetails = AndroidNotificationDetails(channel.id, channel.name, channelDescription: 'your channel Description', importance: Importance.high, priority: Priority.high, ticker: 'ticker');
       const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true);
       NotificationDetails notificationDetailsBoth = NotificationDetails(android: notificationDetails, iOS: darwinNotificationDetails);
       await FlutterLocalNotificationsPlugin().show(
