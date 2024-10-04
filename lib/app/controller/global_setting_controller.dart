@@ -34,8 +34,8 @@ class GlobalSettingController extends GetxController {
 
     });
   }
-  getCurrentCurrency() async {
 
+  getCurrentCurrency() async {
     FireStoreUtils.fireStore.collection(CollectionName.currency).where("isActive", isEqualTo: true).snapshots().listen((event) {
       if (event.docs.isNotEmpty) {
         Constant.currencyModel = CurrencyModel.fromJson(event.docs.first.data());
