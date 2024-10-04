@@ -43,11 +43,13 @@ class LoginController extends GetxController {
       } else {
         print("Country Code is null");
       }
+
       if (argumentData['phoneNumber'] != null) {
         mobileNumberController.value.text = argumentData['phoneNumber'];
       } else {
         print("Phone Number is null");
       }
+
       if (argumentData["fromOTP"] != null) {
         fromOTP.value = argumentData["fromOTP"];
       } else {
@@ -79,6 +81,7 @@ class LoginController extends GetxController {
       },
       codeSent: (String verificationId, int? resendToken, ) {
         ShowToastDialog.closeLoader();
+
         Get.to(OTPVerificationScreen(), arguments: {
           "countryCode": countryCode.value.text,
           "phoneNumber": mobileNumberController.value.text,
@@ -117,7 +120,7 @@ class LoginController extends GetxController {
     }
   }
 
-
+  // Function to register user by saving only the mobile number to Firestore
   registerUser() async {
     ShowToastDialog.showLoader("Registering User...".tr);
     UserModel user = UserModel(
@@ -129,6 +132,7 @@ class LoginController extends GetxController {
       role: Constant.USER_ROLE_CUSTOMER,
       active: true,
     );
+
     String? errorMessage = await FireStoreUtils.firebaseCreateNewUser(user);
     if (errorMessage == null) {
       Constant.currentUser = user;
