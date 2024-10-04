@@ -21,6 +21,7 @@ import 'package:ebasket_customer/services/localDatabase.dart'; // Import your da
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessageBackgroundHandle);
+
   await Firebase.initializeApp(
 
     name: 'vegkart',
@@ -29,8 +30,8 @@ void main() async {
 
 
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-    // androidProvider: AndroidProvider.playIntegrity, // For Android
+    // androidProvider: AndroidProvider.debug,
+    androidProvider: AndroidProvider.playIntegrity, // For Android
   );
 
 
