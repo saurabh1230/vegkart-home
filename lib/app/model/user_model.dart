@@ -8,7 +8,6 @@ class UserModel {
   String? image;
   String? email;
   String? phoneNumber;
-
   String? fcmToken;
   String? role;
   Timestamp? createdAt;

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:ebasket_customer/app/controller/order_controller.dart';
 import 'package:ebasket_customer/app/model/order_model.dart';
@@ -153,7 +154,8 @@ class MyOrderListScreen extends StatelessWidget {
                                 return Center(child: Text('Something went wrong'.tr));
                               }
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Constant.loader();
+                                return LoaderScreen();
+                                  // Constant.loader();
                               }
                               List<QueryDocumentSnapshot> list = snapshot.data!.docs;
                               if (snapshot.data!.docs.isNotEmpty) {

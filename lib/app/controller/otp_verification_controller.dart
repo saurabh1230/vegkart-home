@@ -43,9 +43,8 @@ class OtpVerificationController extends GetxController {
 
   void submitCode() async {
     ShowToastDialog.showLoader("Verify OTP".tr);
-
     auth.PhoneAuthCredential credential = auth.PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: pinController.value.text);
-    // String fcmToken = await NotificationService.getToken();
+    String fcmToken = await NotificationService.getToken();
     await auth.FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
 
       if (!value.additionalUserInfo!.isNewUser) {
@@ -54,7 +53,7 @@ class OtpVerificationController extends GetxController {
             ShowToastDialog.closeLoader();
             UserModel? userModel = await FireStoreUtils.getUserProfile(value.user!.uid);
             if (userModel!.active == true) {
-              // userModel.fcmToken = await NotificationService.getToken();
+              userModel.fcmToken = await NotificationService.getToken();
               await FireStoreUtils.updateCurrentUser(userModel);
               Constant.currentUser = userModel;
               Get.offAll(const DashBoardScreen());
@@ -78,7 +77,7 @@ class OtpVerificationController extends GetxController {
             countryCode: user.value.countryCode,
             phoneNumber: user.value.phoneNumber,
             email: user.value.email,
-            // fcmToken: fcmToken,
+            fcmToken: fcmToken,
             role: Constant.USER_ROLE_CUSTOMER,
             shippingAddress: user.value.shippingAddress,
             id: value.user?.uid ?? '',

@@ -1,4 +1,5 @@
 import 'package:ebasket_customer/widgets/empty_data.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ebasket_customer/app/model/favourite_item_model.dart';
@@ -36,8 +37,9 @@ class FavouriteScreen extends StatelessWidget {
                 Get.back();
               },
             ),
-            body: controller.isLoading.value
-                ? Constant.loader()
+            body: controller.isLoading.value ?
+            LoaderScreen()
+                // ? Constant.loader()
                 : controller.listFavourite.isEmpty
                     ? controller.isServiceAvailable.value
                         ? Constant.emptyView(image: "assets/icons/no_data.png", text: "No Data Found".tr)

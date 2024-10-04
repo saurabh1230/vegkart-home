@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ebasket_customer/app/ui/login_screen/login_screen.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ebasket_customer/app/model/item_attributes.dart';
@@ -100,7 +101,8 @@ class ProductDetailsScreen extends StatelessWidget {
                 ],
               ),
               body: controller.isLoading.value
-                  ? Constant.loader()
+              ? LoaderScreen()
+              // ? Constant.loader()
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SingleChildScrollView(

@@ -7,6 +7,7 @@ import 'package:ebasket_customer/services/firebase_helper.dart';
 import 'package:ebasket_customer/services/helper.dart';
 import 'package:ebasket_customer/services/show_toast_dialog.dart';
 import 'package:ebasket_customer/theme/app_theme_data.dart';
+import 'package:ebasket_customer/widgets/custom_button_widget.dart';
 import 'package:ebasket_customer/widgets/round_button_gradiant.dart';
 import 'package:ebasket_customer/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -227,47 +228,82 @@ class AddAddressScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: RoundedButtonGradiant(
-                                      title: 'Save'.tr,
-                                      icon: true,
-                                      onPress: () async {
-                                        if (controller.formKey.value.currentState!.validate()) {
-                                          if (controller.userLocation == null) {
-                                            ShowToastDialog.showToast("Please select Location".tr);
-                                          } else {
-                                            // if (widget.index != null) {
-                                            if (controller.argumentData != null) {
-                                              controller.addressModel.value.location = controller.userLocation.value;
-                                              controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
-                                              controller.addressModel.value.locality = controller.locality.value.text;
-                                              controller.addressModel.value.address = controller.address.value.text;
-                                              controller.addressModel.value.landmark = controller.landmark.value.text;
-                                              controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
-                                              controller.shippingAddress.removeAt(controller.index.value);
-                                              controller.shippingAddress.insert(controller.index.value, controller.addressModel.value);
-                                            } else {
-                                              controller.addressModel.value.id = Uuid().v4();
-                                              controller.addressModel.value.location = controller.userLocation.value;
-                                              controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
-                                              controller.addressModel.value.locality = controller.locality.value.text;
-                                              controller.addressModel.value.address = controller.address.value.text;
-                                              controller.addressModel.value.landmark = controller.landmark.value.text;
-                                              controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
-                                              controller.addressModel.value.isDefault = controller.shippingAddress.isEmpty ? true : false;
-                                              controller.shippingAddress.add(controller.addressModel.value);
-                                            }
-
-                                            controller.userModel.value.shippingAddress = controller.shippingAddress;
-                                            await FireStoreUtils.updateCurrentUser(controller.userModel.value);
-                                            controller.update();
-                                            Get.back(result: true);
-                                          }
+                                  CustomButtonWidget(buttonText: 'Save',
+                                  onPressed: () async {
+                                    if (controller.formKey.value.currentState!.validate()) {
+                                      if (controller.userLocation == null) {
+                                        ShowToastDialog.showToast("Please select Location".tr);
+                                      } else {
+                                        // if (widget.index != null) {
+                                        if (controller.argumentData != null) {
+                                          controller.addressModel.value.location = controller.userLocation.value;
+                                          controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
+                                          controller.addressModel.value.locality = controller.locality.value.text;
+                                          controller.addressModel.value.address = controller.address.value.text;
+                                          controller.addressModel.value.landmark = controller.landmark.value.text;
+                                          controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
+                                          controller.shippingAddress.removeAt(controller.index.value);
+                                          controller.shippingAddress.insert(controller.index.value, controller.addressModel.value);
+                                        } else {
+                                          controller.addressModel.value.id = Uuid().v4();
+                                          controller.addressModel.value.location = controller.userLocation.value;
+                                          controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
+                                          controller.addressModel.value.locality = controller.locality.value.text;
+                                          controller.addressModel.value.address = controller.address.value.text;
+                                          controller.addressModel.value.landmark = controller.landmark.value.text;
+                                          controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
+                                          controller.addressModel.value.isDefault = controller.shippingAddress.isEmpty ? true : false;
+                                          controller.shippingAddress.add(controller.addressModel.value);
                                         }
-                                      },
-                                    ),
-                                  ),
+
+                                        controller.userModel.value.shippingAddress = controller.shippingAddress;
+                                        await FireStoreUtils.updateCurrentUser(controller.userModel.value);
+                                        controller.update();
+                                        Get.back(result: true);
+                                      }
+                                    }
+                                  },)
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(vertical: 10),
+                                  //   child: RoundedButtonGradiant(
+                                  //     title: 'Save'.tr,
+                                  //     icon: true,
+                                  //     onPress: () async {
+                                  //       if (controller.formKey.value.currentState!.validate()) {
+                                  //         if (controller.userLocation == null) {
+                                  //           ShowToastDialog.showToast("Please select Location".tr);
+                                  //         } else {
+                                  //           // if (widget.index != null) {
+                                  //           if (controller.argumentData != null) {
+                                  //             controller.addressModel.value.location = controller.userLocation.value;
+                                  //             controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
+                                  //             controller.addressModel.value.locality = controller.locality.value.text;
+                                  //             controller.addressModel.value.address = controller.address.value.text;
+                                  //             controller.addressModel.value.landmark = controller.landmark.value.text;
+                                  //             controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
+                                  //             controller.shippingAddress.removeAt(controller.index.value);
+                                  //             controller.shippingAddress.insert(controller.index.value, controller.addressModel.value);
+                                  //           } else {
+                                  //             controller.addressModel.value.id = Uuid().v4();
+                                  //             controller.addressModel.value.location = controller.userLocation.value;
+                                  //             controller.addressModel.value.addressAs = controller.selectedSaveAs.value;
+                                  //             controller.addressModel.value.locality = controller.locality.value.text;
+                                  //             controller.addressModel.value.address = controller.address.value.text;
+                                  //             controller.addressModel.value.landmark = controller.landmark.value.text;
+                                  //             controller.addressModel.value.pinCode = controller.pinCodeController.value.text;
+                                  //             controller.addressModel.value.isDefault = controller.shippingAddress.isEmpty ? true : false;
+                                  //             controller.shippingAddress.add(controller.addressModel.value);
+                                  //           }
+                                  //
+                                  //           controller.userModel.value.shippingAddress = controller.shippingAddress;
+                                  //           await FireStoreUtils.updateCurrentUser(controller.userModel.value);
+                                  //           controller.update();
+                                  //           Get.back(result: true);
+                                  //         }
+                                  //       }
+                                  //     },
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

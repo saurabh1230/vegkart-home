@@ -1,4 +1,5 @@
 import 'package:ebasket_customer/app/ui/login_screen/login_screen.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +28,8 @@ class ProfileScreen extends StatelessWidget {
           appBar: CommonUI.customAppBar(context,
               title: Text("My Profile".tr, style: TextStyle(color: AppThemeData.black, fontFamily: AppThemeData.semiBold, fontSize: 20)), isBack: true),
           body: controller.isLoading.value
-              ? Constant.loader()
+            ? LoaderScreen()
+              // ? Constant.loader()
               : SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -48,11 +50,11 @@ class ProfileScreen extends StatelessWidget {
                                           width: Responsive.width(25, context),
                                           height: Responsive.height(12, context),
                                           decoration: BoxDecoration(
+                                             shape: BoxShape.circle,
                                             image: DecorationImage(
                                               image: NetworkImage(controller.userModel.value.image.toString()),
                                               fit: BoxFit.cover,
                                             ),
-                                            borderRadius: const BorderRadius.all(Radius.circular(70.0)),
                                             border: Border.all(
                                               color: appColor,
                                               width: 4.0,
@@ -62,13 +64,15 @@ class ProfileScreen extends StatelessWidget {
                                       : Container(
                                           width: Responsive.width(25, context),
                                           height: Responsive.height(12, context),
+                                          clipBehavior: Clip.hardEdge,
                                           decoration: BoxDecoration(
-                                            color: appColor,
+                                            // color: appColor,
+                                            shape: BoxShape.circle,
                                             // image: const DecorationImage(
                                             //   image: AssetImage("assets/icons/ic_logo.png"),
                                             //   fit: BoxFit.cover,
                                             // ),
-                                            borderRadius: const BorderRadius.all(Radius.circular(70.0)),
+                                            // borderRadius: const BorderRadius.all(Radius.circular(70.0)),
                                             border: Border.all(
                                               color: appColor,
                                               width: 4.0,
@@ -83,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                                           ),
                                         ),
                                   const SizedBox(
-                                    width: 20,
+                                    width: 10,
                                   ),
                                   Expanded(
                                     child: Column(

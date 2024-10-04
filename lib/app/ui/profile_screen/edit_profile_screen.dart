@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,7 +29,8 @@ class EditProfileScreen extends StatelessWidget {
                 title: Text("Edit Profile".tr, style: TextStyle(color: AppThemeData.black, fontFamily: AppThemeData.semiBold, fontSize: 20)), isBack: true),
             body: SingleChildScrollView(
               child: controller.isLoading.value
-                  ? Constant.loader()
+                ? LoaderScreen()
+                  // ? Constant.loader()
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Form(
@@ -45,7 +47,7 @@ class EditProfileScreen extends StatelessWidget {
                                             width: Responsive.height(14, context),
                                             height: Responsive.height(14, context),
                                             decoration: BoxDecoration(
-                                              color: appColor,
+                                              // color: appColor,
                                               // image: const DecorationImage(
                                               //   image: AssetImage("assets/icons/ic_logo.png"),
                                               //   fit: BoxFit.cover,

@@ -19,6 +19,7 @@ import 'package:ebasket_customer/utils/theme/light_theme.dart';
 import 'package:ebasket_customer/widgets/custom_button_widget.dart';
 import 'package:ebasket_customer/widgets/custom_drawer.dart';
 import 'package:ebasket_customer/widgets/empty_data.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,90 +61,90 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.dialog(
-          Dialog(
-            backgroundColor: Colors.transparent,
-            insetPadding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-            child: InkWell(
-              onTap: () {
-                Get.to(const ViewAllCategoryProductScreen(), arguments:
-                {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
-                  "categoryName": 'Fresh Vegetables'});
-              },
-              child: SizedBox(
-                height: 400,
-                width: Get.size.width,
-                child: Stack(
-                  children: [
-                    // Background Image
-                    Image.asset(
-                      'assets/images/coupon_bg.png',
-                      height: 400,
-                      width: Get.size.width,
-                      fit: BoxFit.cover, // Ensure the image covers the entire dialog area
-                    ),
-                    // Text and other content on top of the image
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0), // Adjust padding for text inside the image
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // sizedBox30(),
-                          Align(alignment: Alignment.centerRight,
-                              child: IconButton(onPressed: () {
-                                Get.back();
-                              }, icon: Icon(Icons.cancel,color: Theme.of(context).cardColor,))),
-                          Image.asset('assets/images/Hurry Up.png',height: 40,
-                          width: 180,),
-                          SizedBox(height: 10), // Use SizedBox for spacing
-                          // Sub-headline Text
-                          Text(
-                            'Savings Are Waiting!',
-                            style: montserratMedium.copyWith(
-                              fontSize: Dimensions.fontSize15,
-                              color: Colors.white, // Ensure text is readable on the background
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 10), // Use SizedBox for spacing
-                          // Offer Text
-                          Text(
-                            'Get 25% OFF on all fresh produce vegetables today only!',
-                            style: montserratBold.copyWith(
-                              fontSize: Dimensions.fontSize20,
-                              color: Theme.of(context).highlightColor, // Customize color as needed
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                      SizedBox(height: 10),
-                          CustomButtonWidget(buttonText: 'Order Now',
-                          onPressed: () {
-                            Get.to(const ViewAllCategoryProductScreen(), arguments:
-                            {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
-                              "categoryName": 'Fresh Vegetables'});
-                          },
-                            width: 180,
-                            height: 40,
-                            radius: Dimensions.radius20,
-                          fontSize: Dimensions.fontSizeDefault,
-                          textColor: Theme.of(context).primaryColor,
-                          color: Theme.of(context).highlightColor,),
-
-                        ],
-                      ),
-                    ),
-                    Positioned(bottom: 0,right: 0,left: 0,
-                        child: Image.asset('assets/images/coupon_product_image.png',height:140,)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-      );
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Get.dialog(
+    //       Dialog(
+    //         backgroundColor: Colors.transparent,
+    //         insetPadding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+    //         child: InkWell(
+    //           onTap: () {
+    //             Get.to(const ViewAllCategoryProductScreen(), arguments:
+    //             {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
+    //               "categoryName": 'Fresh Vegetables'});
+    //           },
+    //           child: SizedBox(
+    //             height: 400,
+    //             width: Get.size.width,
+    //             child: Stack(
+    //               children: [
+    //                 // Background Image
+    //                 Image.asset(
+    //                   'assets/images/coupon_bg.png',
+    //                   height: 400,
+    //                   width: Get.size.width,
+    //                   fit: BoxFit.cover, // Ensure the image covers the entire dialog area
+    //                 ),
+    //                 // Text and other content on top of the image
+    //                 Padding(
+    //                   padding: EdgeInsets.symmetric(horizontal: 20.0), // Adjust padding for text inside the image
+    //                   child: Column(
+    //                     // mainAxisAlignment: MainAxisAlignment.center,
+    //                     crossAxisAlignment: CrossAxisAlignment.center,
+    //                     children: [
+    //                       // sizedBox30(),
+    //                       Align(alignment: Alignment.centerRight,
+    //                           child: IconButton(onPressed: () {
+    //                             Get.back();
+    //                           }, icon: Icon(Icons.cancel,color: Theme.of(context).cardColor,))),
+    //                       Image.asset('assets/images/Hurry Up.png',height: 40,
+    //                       width: 180,),
+    //                       SizedBox(height: 10), // Use SizedBox for spacing
+    //                       // Sub-headline Text
+    //                       Text(
+    //                         'Savings Are Waiting!',
+    //                         style: montserratMedium.copyWith(
+    //                           fontSize: Dimensions.fontSize15,
+    //                           color: Colors.white, // Ensure text is readable on the background
+    //                         ),
+    //                         textAlign: TextAlign.center,
+    //                       ),
+    //                       SizedBox(height: 10), // Use SizedBox for spacing
+    //                       // Offer Text
+    //                       Text(
+    //                         'Get 25% OFF on all fresh produce vegetables today only!',
+    //                         style: montserratBold.copyWith(
+    //                           fontSize: Dimensions.fontSize20,
+    //                           color: Theme.of(context).highlightColor, // Customize color as needed
+    //                         ),
+    //                         textAlign: TextAlign.center,
+    //                       ),
+    //                   SizedBox(height: 10),
+    //                       CustomButtonWidget(buttonText: 'Order Now',
+    //                       onPressed: () {
+    //                         Get.to(const ViewAllCategoryProductScreen(), arguments:
+    //                         {"categoryId": Get.find<ProductListController>().freshVegetablesList[0].categoryID.toString(),
+    //                           "categoryName": 'Fresh Vegetables'});
+    //                       },
+    //                         width: 180,
+    //                         height: 40,
+    //                         radius: Dimensions.radius20,
+    //                       fontSize: Dimensions.fontSizeDefault,
+    //                       textColor: Theme.of(context).primaryColor,
+    //                       color: Theme.of(context).highlightColor,),
+    //
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 Positioned(bottom: 0,right: 0,left: 0,
+    //                     child: Image.asset('assets/images/coupon_product_image.png',height:140,)),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //
+    //   );
+    // });
   }
 
 
@@ -154,13 +155,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return GetBuilder(
         init: HomeController(),
         builder: (controller) {
+
           return GetBuilder(
               init: ProductListController(),
               builder: (productControl) {
                 return Scaffold(
                   key: _scaffoldKey,
                   drawer: CustomDrawer(),
-                  body: CustomScrollView(slivers: <Widget>[
+                  body: controller.isLoading.value
+                      ? Constant.selectedPosition.id != null
+                      ? LoaderScreen()
+                      : LoaderScreen()
+                      :
+                      controller.productList.isEmpty
+                      ? EmptyData()
+                      :
+
+
+                  CustomScrollView(slivers: <Widget>[
                     SliverAppBar(
                       automaticallyImplyLeading: false,
                       pinned: true,
@@ -517,14 +529,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          controller.isLoading.value
-                              ? Constant.selectedPosition.id != null
-                                  ? HomeShimmer()
-                                  : HomeShimmer()
-                              : controller.bestOfferList.isEmpty ||
-                                      controller.productList.isEmpty
-                                  ? EmptyData()
-                                  :
+
                           Column(
                             children: [
                                         Padding(

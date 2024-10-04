@@ -98,5 +98,4 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 }
 
-// 23.0454913
-// 72.5315662
+

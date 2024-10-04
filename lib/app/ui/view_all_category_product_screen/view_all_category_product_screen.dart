@@ -1,3 +1,4 @@
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ebasket_customer/app/ui/search_screen/search_screen.dart';
@@ -36,8 +37,9 @@ class ViewAllCategoryProductScreen extends StatelessWidget {
                 title: Text(controller.categoryName.toString().tr, style: const TextStyle(color: AppThemeData.black, fontFamily: AppThemeData.semiBold, fontSize: 20)),
                 isBack: true,
               ),
-              body: controller.isLoading.value
-                  ? Constant.loader()
+              body: controller.isLoading.value ?
+                  LoaderScreen()
+                  // ? Constant.loader()
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(

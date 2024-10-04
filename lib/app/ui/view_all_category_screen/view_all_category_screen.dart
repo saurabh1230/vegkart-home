@@ -1,4 +1,5 @@
 import 'package:ebasket_customer/widgets/empty_data.dart';
+import 'package:ebasket_customer/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:ebasket_customer/app/ui/view_all_category_product_screen/view_all_category_product_screen.dart';
 import 'package:get/get.dart';
@@ -28,8 +29,9 @@ class ViewAllCategoryListScreen extends StatelessWidget {
                 Get.back();
               },
             ),
-            body: controller.isLoading.value
-                ? Constant.loader()
+            body: controller.isLoading.value ?
+            LoaderScreen()
+                // ? Constant.loader()
                 : controller.categoryList.isEmpty
                     ?  controller.isServiceAvailable.value ? Constant.emptyView(image: "assets/icons/no_data.png", text: "No Data Found".tr) : EmptyData()
                     : Padding(

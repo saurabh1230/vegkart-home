@@ -1,14 +1,11 @@
 import 'package:ebasket_customer/app/model/address_model.dart';
 import 'package:ebasket_customer/utils/images.dart';
-import 'package:ebasket_customer/utils/sizeboxes.dart';
+import 'package:ebasket_customer/utils/theme/light_theme.dart';
 import 'package:ebasket_customer/widgets/custom_button_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ebasket_customer/app/model/location_lat_lng.dart';
-import 'package:ebasket_customer/constant/constant.dart';
-import 'package:ebasket_customer/services/helper.dart';
 import 'package:ebasket_customer/widgets/mobile_number_textfield.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,23 +13,20 @@ import 'package:get/get.dart';
 import 'package:ebasket_customer/app/controller/signup_controller.dart';
 import 'package:ebasket_customer/app/ui/login_screen/login_screen.dart';
 import 'package:ebasket_customer/theme/app_theme_data.dart';
-import 'package:ebasket_customer/utils/dark_theme_provider.dart';
 import 'package:ebasket_customer/widgets/round_button_gradiant.dart';
 import 'package:ebasket_customer/widgets/text_field_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../utils/theme/light_theme.dart';
+import '../../../constant/constant.dart';
+import '../../../services/helper.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
-
     return GetBuilder(
         init: SignupController(),
         builder: (controller) {
@@ -59,13 +53,19 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-                      Center(child: Image.asset(Images.logo,height: 200,)),
+                      Center(
+                        child: Image.asset(
+                          Images.logo,
+                          height: 180,
+                        ),
+                      ),
                       TextFieldWidget(
                         controller: controller.fullNameController.value,
                         hintText: "Full Name".tr,
                         title: "Enter Full Name *".tr,
-                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-z A-Z ]"))],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp("[a-z A-Z ]"))
+                        ],
                         validation: (value) {
                           String pattern = r'(^[a-zA-Z ]*$)';
                           RegExp regExp = RegExp(pattern);
@@ -86,7 +86,7 @@ class SignupScreen extends StatelessWidget {
                         onTap: () async {
                           AddressModel addressModel = AddressModel();
                           checkPermission(
-                            () async {
+                                () async {
                               try {
                                 await Geolocator.requestPermission();
 
@@ -129,7 +129,6 @@ class SignupScreen extends StatelessWidget {
                               } catch (e) {
                                 await placemarkFromCoordinates(19.228825, 72.854118).then((valuePlaceMaker) {
                                   Placemark placeMark = valuePlaceMaker[0];
-
                                   String currentLocation =
                                       "${placeMark.name}, ${placeMark.subLocality}, ${placeMark.locality}, ${placeMark.administrativeArea}, ${placeMark.postalCode}, ${placeMark.country}";
                                   controller.businessAddressController.value.text = currentLocation;
@@ -152,26 +151,63 @@ class SignupScreen extends StatelessWidget {
                           title: "Enter Address *".tr,
                           enable: false,
                           textInputType: TextInputType.text,
-                          // validation: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return 'Address is required'.tr;
-                          //   }
-                          //   return null;
-                          // },
                           prefix: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: SvgPicture.asset("assets/icons/ic_profile_add.svg", height: 22, width: 22),
                           ),
                         ),
                       ),
-                      MobileNumberTextField(
-                        title: "Enter Mobile Number *".tr,
-                        read: controller.fromOTP.value ? true : false,
+                      // TextFieldWidget(
+                      //   controller: controller.mobileNumberController.value,
+                      //   hintText: "Enter Mobile Number *".tr,
+                      //   title: "Enter Mobile Number *".tr,
+                      //   textInputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     LengthLimitingTextInputFormatter(10),
+                      //   ],
+                      //   validation: (value) {
+                      //     String pattern = r'(^\+?[0-9]*$)';
+                      //     RegExp regExp = RegExp(pattern);
+                      //     if (value!.isEmpty) {
+                      //       return 'Mobile Number is required'.tr;
+                      //     } else if (!regExp.hasMatch(value)) {
+                      //       return 'Mobile Number must be digits'.tr;
+                      //     }
+                      //     return null;
+                      //   },
+                      //   prefix: Padding(
+                      //     padding: const EdgeInsets.all(4.0),
+                      //     child: SvgPicture.asset("assets/icons/ic_email.svg", height: 22, width: 22),
+                      //   ),
+                      // ),
+                      // MobileNumberTextField(
+                      //   title: "Enter Mobile Number *".tr,
+                      //   read: controller.fromOTP.value,
+                      //   controller: controller.mobileNumberController.value,
+                      //   countryCodeController: controller.countryCode.value,
+                      //   inputFormatters: [
+                      //     LengthLimitingTextInputFormatter(10),
+                      //   ],
+                      //   validation: (value) {
+                      //     String pattern = r'(^\+?[0-9]*$)';
+                      //     RegExp regExp = RegExp(pattern);
+                      //     if (value!.isEmpty) {
+                      //       return 'Mobile Number is required'.tr;
+                      //     } else if (!regExp.hasMatch(value)) {
+                      //       return 'Mobile Number must be digits'.tr;
+                      //     }
+                      //     return null;
+                      //   },
+                      //   onPress: () {},
+                      // ),
+                      TextFieldWidget(
                         controller: controller.mobileNumberController.value,
-                        countryCodeController: controller.countryCode.value,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                        ],
+                        hintText: "Enter Mobile Number".tr,
+                        title: "Enter Mobile Number".tr,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(10),
+                          ],
+                        textInputType: TextInputType.number,
                         validation: (value) {
                           String pattern = r'(^\+?[0-9]*$)';
                           RegExp regExp = RegExp(pattern);
@@ -182,7 +218,10 @@ class SignupScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        onPress: () {},
+                        prefix: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(Icons.call,color: Theme.of(context).disabledColor,),
+                        ),
                       ),
                       TextFieldWidget(
                         controller: controller.emailAddressController.value,
@@ -194,7 +233,7 @@ class SignupScreen extends StatelessWidget {
                               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                           RegExp regex = RegExp(pattern);
                           if (value!.isNotEmpty) {
-                            if (!regex.hasMatch(value ?? '')) {
+                            if (!regex.hasMatch(value)) {
                               return 'Enter valid e-mail'.tr;
                             } else {
                               return null;
@@ -207,41 +246,31 @@ class SignupScreen extends StatelessWidget {
                           child: SvgPicture.asset("assets/icons/ic_email.svg", height: 22, width: 22),
                         ),
                       ),
-                      sizedBoxDefault(),
-                      CustomButtonWidget(buttonText: 'Next',
-                      onPressed: () {
-                        if (controller.formKey.value.currentState!.validate()) {
-                          if (controller.fromOTP.value) {
-                            controller.registerUser();
-                          } else {
-                            controller.sendCode();
-                          }
-                        }
-                      },),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(vertical: 10),
-                      //   child: RoundedButtonGradiant(
-                      //     title: "Next".tr,
-                      //     icon: true,
-                      //     onPress: () async {
-                      //       if (controller.formKey.value.currentState!.validate()) {
-                      //         if (controller.fromOTP.value) {
-                      //           controller.registerUser();
-                      //         } else {
-                      //           controller.sendCode();
-                      //         }
-                      //       }
-                      //     },
-                      //   ),
-                      // ),
-                      const SizedBox(
-                        height: 10,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: CustomButtonWidget(buttonText: 'Next',
+                        onPressed: () {
+                              if (controller.formKey.value.currentState!.validate()) {
+                                controller.sendCode();
+                              }
+                        },)
+
+                        // RoundedButtonGradiant(
+                        //   title: "Next".tr,
+                        //   icon: true,
+                        //   onPress: () async {
+                        //     if (controller.formKey.value.currentState!.validate()) {
+                        //       controller.sendCode();
+                        //     }
+                        //   },
+                        // ),
                       ),
-                      Center(
-                        child: TextButton(
-                          onPressed: () {
-                            Get.offAll( LoginScreen());
-                          },
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {
+                          Get.offAll(const LoginScreen());
+                        },
+                        child: Center(
                           child: Text.rich(
                             textAlign: TextAlign.center,
                             TextSpan(
@@ -254,7 +283,7 @@ class SignupScreen extends StatelessWidget {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: 'Login'.tr,
+                                  text: ' Login',
                                   style: TextStyle(
                                     color: appColor,
                                     fontWeight: FontWeight.w500,
@@ -268,9 +297,37 @@ class SignupScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // Center(
+                      //   child: Text.rich(
+                      //     textAlign: TextAlign.center,
+                      //     TextSpan(
+                      //       text: "${'Already a member ?'.tr} ",
+                      //       style: const TextStyle(
+                      //         fontWeight: FontWeight.w500,
+                      //         fontSize: 12,
+                      //         fontFamily: AppThemeData.medium,
+                      //         color: AppThemeData.black,
+                      //       ),
+                      //       children: <TextSpan>[
+                      //         TextSpan(
+                      //           recognizer: TapGestureRecognizer()
+                      //             ..onTap = () {
+                      //               Get.offAll(const LoginScreen());
+                      //             },
+                      //           text: 'Login'.tr,
+                      //           style: TextStyle(
+                      //             color: AppThemeData.groceryAppDarkBlue,
+                      //             fontWeight: FontWeight.w500,
+                      //             fontSize: 12,
+                      //             fontFamily: AppThemeData.medium,
+                      //             decoration: TextDecoration.underline,
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
