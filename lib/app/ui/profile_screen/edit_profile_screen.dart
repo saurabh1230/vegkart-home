@@ -147,27 +147,47 @@ class EditProfileScreen extends StatelessWidget {
                                 child: SvgPicture.asset("assets/icons/ic_user.svg", height: 22, width: 22),
                               ),
                             ),
-
-                            MobileNumberTextField(
-                              title: "Enter Mobile Number *".tr,
-                              read: true,
+                            TextFieldWidget(maxLength: 10,
                               controller: controller.mobileNumberController.value,
-                              countryCodeController: controller.countryCode.value,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                              ],
+                              hintText: "Mobile Number".tr,
+                              title: "Enter Mobile Number *".tr,
+                              textInputType: TextInputType.number,
                               validation: (value) {
                                 String pattern = r'(^\+?[0-9]*$)';
                                 RegExp regExp = RegExp(pattern);
                                 if (value!.isEmpty) {
-                                  return 'Mobile is required'.tr;
+                                  return 'Mobile Number is required'.tr;
                                 } else if (!regExp.hasMatch(value)) {
                                   return 'Mobile Number must be digits'.tr;
                                 }
                                 return null;
                               },
-                              onPress: () {},
+                              prefix: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Icon(Icons.call,color: Theme.of(context).disabledColor,),
+                              ),
                             ),
+
+                            // MobileNumberTextField(
+                            //   title: "Enter Mobile Number *".tr,
+                            //   read: true,
+                            //   controller: controller.mobileNumberController.value,
+                            //   countryCodeController: controller.countryCode.value,
+                            //   inputFormatters: [
+                            //     LengthLimitingTextInputFormatter(10),
+                            //   ],
+                            //   validation: (value) {
+                            //     String pattern = r'(^\+?[0-9]*$)';
+                            //     RegExp regExp = RegExp(pattern);
+                            //     if (value!.isEmpty) {
+                            //       return 'Mobile is required'.tr;
+                            //     } else if (!regExp.hasMatch(value)) {
+                            //       return 'Mobile Number must be digits'.tr;
+                            //     }
+                            //     return null;
+                            //   },
+                            //   onPress: () {},
+                            // ),
                             TextFieldWidget(
                               controller: controller.emailAddressController.value,
                               hintText: "Email Address".tr,

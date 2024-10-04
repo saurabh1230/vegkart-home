@@ -24,6 +24,7 @@ import 'package:ebasket_customer/widgets/round_button_gradiant.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/theme/light_theme.dart';
+import '../../../widgets/text_field_widget.dart';
 import '../dashboard_screen/dashboard_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -81,33 +82,53 @@ class LoginScreen extends StatelessWidget {
                               color: Theme.of(context).primaryColor),
                         ),
                         sizedBox30(),
-                        Text(
-                          'Enter Your Phone Number to Login',
-                          style: montserratMedium.copyWith(
-                              fontSize: Dimensions.fontSize13),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: Dimensions.paddingSize100),
-                          child: MobileNumberTextField(
-                            title: "Enter Mobile Number *".tr,
-                            read: false,
-                            controller: controller.mobileNumberController.value,
-                            countryCodeController: controller.countryCode.value,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(10),
-                            ],
-                            validation: (value) {
-                              String pattern = r'(^\+?[0-9]*$)';
-                              RegExp regExp = RegExp(pattern);
-                              if (value!.isEmpty) {
-                                return 'Mobile Number is required'.tr;
-                              } else if (!regExp.hasMatch(value)) {
-                                return 'Mobile Number must be digits'.tr;
-                              }
-                              return null;
-                            },
-                            onPress: () {},
+                        // Text(
+                        //   'Enter Your Phone Number to Login',
+                        //   style: montserratMedium.copyWith(
+                        //       fontSize: Dimensions.fontSize13),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //       bottom: Dimensions.paddingSize100),
+                        //   child: MobileNumberTextField(
+                        //     title: "Enter Mobile Number *".tr,
+                        //     read: false,
+                        //     controller: controller.mobileNumberController.value,
+                        //     countryCodeController: controller.countryCode.value,
+                        //     inputFormatters: [
+                        //       LengthLimitingTextInputFormatter(10),
+                        //     ],
+                        //     validation: (value) {
+                        //       String pattern = r'(^\+?[0-9]*$)';
+                        //       RegExp regExp = RegExp(pattern);
+                        //       if (value!.isEmpty) {
+                        //         return 'Mobile Number is required'.tr;
+                        //       } else if (!regExp.hasMatch(value)) {
+                        //         return 'Mobile Number must be digits'.tr;
+                        //       }
+                        //       return null;
+                        //     },
+                        //     onPress: () {},
+                        //   ),
+                        // ),
+                        TextFieldWidget(maxLength: 10,
+                          controller: controller.mobileNumberController.value,
+                          hintText: "Mobile Number".tr,
+                          title: "Enter Mobile Number *".tr,
+                          textInputType: TextInputType.number,
+                              validation: (value) {
+                                String pattern = r'(^\+?[0-9]*$)';
+                                RegExp regExp = RegExp(pattern);
+                                if (value!.isEmpty) {
+                                  return 'Mobile Number is required'.tr;
+                                } else if (!regExp.hasMatch(value)) {
+                                  return 'Mobile Number must be digits'.tr;
+                                }
+                                return null;
+                              },
+                          prefix: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Icon(Icons.call,color: Theme.of(context).disabledColor,),
                           ),
                         ),
                       ],
@@ -149,18 +170,32 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
-
                         CustomButtonWidget(
                           buttonText: 'Continue',
                           color: Theme.of(context).primaryColor,
                           isBold: true,
                           onPressed: () {
                             if (controller.formKey.value.currentState!.validate()) {
-                              controller.sendCode();
+                              // Combine country code and mobile number to create a complete phone number
+                              String fullPhoneNumber = '+91' + controller.mobileNumberController.value.text;
+                              // Call the sendCode method which now handles both login and signup logic
+                              controller.sendCode(fullPhoneNumber);
                             }
                           },
                         ),
+
+
+
+                        // CustomButtonWidget(
+                        //   buttonText: 'Continue',
+                        //   color: Theme.of(context).primaryColor,
+                        //   isBold: true,
+                        //   onPressed: () {
+                        //     if (controller.formKey.value.currentState!.validate()) {
+                        //       controller.sendCode();
+                        //     }
+                        //   },
+                        // ),
                       ],
                     ),
                   ),

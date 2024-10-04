@@ -461,109 +461,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       bottom: PreferredSize(
-                        preferredSize:  Size.fromHeight(
-                           30.0),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                          child: Column(children: [
-                            InkWell(onTap: () {
-                              // Get.toNamed(RouteHelper.getSearchRoute());
-                            },
-                              child:   Stack(
-                                children: [
-                                  Row(
+                        preferredSize: const Size.fromHeight(40.0),
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault,
+                                right:  Dimensions.paddingSizeDefault,
+                                bottom: Dimensions.paddingSize20),
+                            child: Column(children: [
+                              InkWell(onTap: () {
+                                Get.to(SearchScreen());
+                              },
+                                child: Container(
+                                  height: 45,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSize5),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 0.5,
+                                        color: Theme.of(context).disabledColor.withOpacity(0.10)),
+                                    color: Theme.of(context).cardColor,
+                                    borderRadius:
+                                    BorderRadius.circular(Dimensions.radius20),
+                                  ),
+                                  child: Row(
                                     children: [
-                                      Expanded(
-                                        child: TextFieldWidget(
-                                          readonly: true,
-                                          onTap: () {
-                                            Get.to(SearchScreen());
-                                          },
-                                          controller: controller
-                                              .searchTextFiledController.value,
-                                          hintText: "Search".tr,
-                                          enable: true,
-                                          onFieldSubmitted: (v) {
-                                            return null;
-                                          },
-                                          onChanged: (value) {
-                                            controller.getFilterData(value!);
-                                            return null;
-                                          },
-                                          suffix: Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: SvgPicture.asset(
-                                                "assets/icons/ic_search.svg",
-                                                height: 22,
-                                                width: 22),
-                                          ),
+                                      Icon(
+                                        CupertinoIcons.search,
+                                        color: Theme.of(context).hintColor,
+                                      ),
+                                      sizedBoxW10(),
+
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: "Search",
+                                              style: montserratRegular.copyWith(
+                                                  fontSize: Dimensions.fontSize13,
+                                                  color: Theme.of(context)
+                                                      .hintColor), // Different color for "resend"
+                                            ),
+
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                  // if (controller.filterProductList.isNotEmpty && controller.searchTextFiledController.value.text.isNotEmpty)
-                                  //   Padding(
-                                  //     padding: const EdgeInsets.only(top: 40),
-                                  //     child: Card(
-                                  //       color: Colors.white,
-                                  //       child: ListView.builder(
-                                  //           itemCount: controller.filterProductList.length,
-                                  //           padding: const EdgeInsets.fromLTRB(15, 2, 15, 2),
-                                  //           shrinkWrap: true,
-                                  //           itemBuilder: (context, index) {
-                                  //             print("========${controller.filterProductList[index].brandID.toString()}");
-                                  //             return InkWell(
-                                  //               onTap: () {
-                                  //                 Get.to(const ProductDetailsScreen(), arguments: {
-                                  //                   "productModel": controller.filterProductList[index],
-                                  //                 });
-                                  //               },
-                                  //               child: Padding(
-                                  //                 padding: const EdgeInsets.symmetric(vertical: 5),
-                                  //                 child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                  //                   Text(
-                                  //                     controller.filterProductList[index].name.toString(),
-                                  //                     textAlign: TextAlign.start,
-                                  //                     maxLines: 2,
-                                  //                     style: const TextStyle(
-                                  //                       color: AppThemeData.black,
-                                  //                       fontWeight: FontWeight.w400,
-                                  //                       fontFamily: AppThemeData.regular,
-                                  //                     ),
-                                  //                   ),
-                                  //                   StreamBuilder(
-                                  //                     stream: FirebaseFirestore.instance
-                                  //                         .collection(CollectionName.brands)
-                                  //                         .where("id", isEqualTo: controller.filterProductList[index].brandID.toString())
-                                  //                         .snapshots(),
-                                  //                     builder: (context, snapshot) {
-                                  //                       dynamic data = snapshot.data != null ? snapshot.data!.docs[0].data() : null;
-                                  //
-                                  //                       return snapshot.data != null && snapshot.data!.docs.isNotEmpty
-                                  //                           ? Text(
-                                  //                         "by ${data['title']}",
-                                  //                         textAlign: TextAlign.start,
-                                  //                         maxLines: 2,
-                                  //                         style: const TextStyle(
-                                  //                           color: AppThemeData.black,
-                                  //                           fontSize: 12,
-                                  //                           fontWeight: FontWeight.w400,
-                                  //                           fontFamily: AppThemeData.regular,
-                                  //                         ),
-                                  //                       )
-                                  //                           : Container();
-                                  //                     },
-                                  //                   )
-                                  //                 ]),
-                                  //               ),
-                                  //             );
-                                  //           }),
-                                  //     ),
-                                  //   )
-                                ],
+                                ),
                               ),
+                            ],
                             ),
-                          ],
                           ),
                         ),
                       ),

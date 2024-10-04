@@ -1,19 +1,7 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:get/get.dart';
-// import 'package:ebasket_customer/theme/app_theme_data.dart';
-// import 'package:ebasket_customer/utils/dark_theme_provider.dart';
-// import 'package:provider/provider.dart';
-//
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:ebasket_customer/theme/app_theme_data.dart';
-
-import '../utils/theme/light_theme.dart';
+import '../theme/app_theme_data.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? title;
@@ -21,7 +9,6 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final Function()? onPress;
   final String? Function(String?)? onChanged;
-  final String? Function(String?)? onFieldSubmitted;
   final Widget? prefix;
   final Widget? suffix;
   final bool? enable;
@@ -30,8 +17,10 @@ class TextFieldWidget extends StatelessWidget {
   final TextInputType? textInputType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validation;
-  final bool? readonly; // New parameter
-  final VoidCallback? onTap; // New parameter
+  final Function()? onTap; // Add onTap parameter
+  final bool readonly; // Add readonly parameter
+  final Function(String)? onFieldSubmitted; // Add this line
+  final int? maxLength; // New parameter for max length
 
   const TextFieldWidget({
     super.key,
@@ -47,10 +36,11 @@ class TextFieldWidget extends StatelessWidget {
     this.inputFormatters,
     this.obscureText,
     this.onChanged,
-    this.onFieldSubmitted,
     this.validation,
-    this.readonly, // New parameter
-    this.onTap, // New parameter
+    this.onTap, // Include it here
+    this.readonly = false, // Default value for readonly
+    this.onFieldSubmitted,
+    this.maxLength, // Include maxLength parameter
   });
 
   @override
@@ -70,186 +60,73 @@ class TextFieldWidget extends StatelessWidget {
                   child: Text(
                     title ?? '',
                     style: const TextStyle(
-                      fontFamily: AppThemeData.semiBold,
+                      fontFamily: AppThemeData.regular,
                       fontSize: 14,
                       color: AppThemeData.black,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
               ],
             ),
           ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            keyboardType: textInputType ?? TextInputType.text,
-            textCapitalization: TextCapitalization.sentences,
-            controller: controller,
-            textAlign: TextAlign.start,
-            maxLines: maxLine ?? 1,
-            textInputAction: TextInputAction.done,
-            inputFormatters: inputFormatters,
-            obscureText: obscureText ?? false,
-            validator: validation,
-            onChanged: onChanged,
-            onFieldSubmitted: onFieldSubmitted,
-            onTap: onTap, // Handle tap event
-            style: const TextStyle(
-              fontSize: 16,
-              color: AppThemeData.black,
-              fontFamily: AppThemeData.medium,
-            ),
-            decoration: InputDecoration(
-              errorStyle: const TextStyle(color: Colors.red),
-              isDense: true,
-              filled: true,
-              enabled: enable ?? true,
-              fillColor: AppThemeData.colorLightWhite,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 14,
-                horizontal: prefix != null ? 0 : 10,
-              ),
-              prefixIcon: prefix,
-              suffixIcon: suffix,
-              disabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(color: appColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(color: appColor),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(color: appColor),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(color: appColor),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(color: appColor),
-              ),
-              hintText: hintText.tr,
-              hintStyle: TextStyle(
-                fontSize: 16,
-                color: AppThemeData.black.withOpacity(0.50),
-                fontWeight: FontWeight.w400,
-                fontFamily: AppThemeData.regular,
+          GestureDetector( // Wrap TextFormField with GestureDetector
+            onTap: readonly ? onTap : null, // Call onTap if readonly
+            child: AbsorbPointer( // Prevent user interaction if readonly
+              absorbing: readonly,
+              child: TextFormField(
+                onFieldSubmitted: onFieldSubmitted,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: textInputType ?? TextInputType.text,
+                textCapitalization: TextCapitalization.sentences,
+                controller: controller,
+                textAlign: TextAlign.start,
+                maxLines: maxLine ?? 1,
+                textInputAction: TextInputAction.done,
+                inputFormatters: inputFormatters,
+                obscureText: obscureText ?? false,
+                validator: validation,
+                onChanged: onChanged,
+                maxLength: !readonly ? maxLength : null, // Set maxLength conditionally
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppThemeData.black.withOpacity(0.90),
+                  fontWeight: FontWeight.w300,
+                  fontFamily: AppThemeData.regular,
+                ),
+                decoration: InputDecoration(
+                  errorStyle: const TextStyle(color: Colors.red),
+                  isDense: true,
+                  filled: false, // Set filled to false for underline
+                  enabled: enable ?? true,
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: 14, horizontal: prefix != null ? 0 : 10),
+                  prefixIcon: prefix,
+                  suffixIcon: suffix,
+                  // Use the below properties to achieve underline decoration
+                  focusedBorder:  UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppThemeData.groceryAppDarkBlue),
+                  ),
+                  enabledBorder:  UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppThemeData.groceryAppDarkBlue),
+                  ),
+                  errorBorder:  UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppThemeData.groceryAppDarkBlue),
+                  ),
+                  hintText: hintText.tr,
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: AppThemeData.black.withOpacity(0.50),
+                    fontWeight: FontWeight.w300,
+                    fontFamily: AppThemeData.regular,
+                  ),
+                ),
               ),
             ),
-            readOnly: readonly ?? false, // Set read-only based on the parameter
           ),
         ],
       ),
     );
   }
 }
-
-// class TextFieldWidget extends StatelessWidget {
-//   final String? title;
-//   final String hintText;
-//   final TextEditingController? controller;
-//   final Function()? onPress;
-//   final String? Function(String?)? onChanged;
-//   final String? Function(String?)? onFieldSubmitted;
-//   final Widget? prefix;
-//   final Widget? suffix;
-//   final bool? enable;
-//   final bool? obscureText;
-//   final int? maxLine;
-//   final TextInputType? textInputType;
-//   final List<TextInputFormatter>? inputFormatters;
-//   final String? Function(String?)? validation;
-//
-//   const TextFieldWidget({
-//     super.key,
-//     this.textInputType,
-//     this.enable,
-//     this.prefix,
-//     this.suffix,
-//     this.title,
-//     required this.hintText,
-//     required this.controller,
-//     this.onPress,
-//     this.maxLine,
-//     this.inputFormatters,
-//     this.obscureText,
-//     this.onChanged,
-//     this.onFieldSubmitted,
-//     this.validation,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // final themeChange = Provider.of<DarkThemeProvider>(context);
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 16),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Visibility(
-//             visible: title != null,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.symmetric(horizontal: 5),
-//                   child: Text(title ?? '', style: const TextStyle(fontFamily: AppThemeData.semiBold, fontSize: 14, color: AppThemeData.black, fontWeight: FontWeight.w600)),
-//                 ),
-//                 const SizedBox(
-//                   height: 8,
-//                 ),
-//               ],
-//             ),
-//           ),
-//           TextFormField(
-//             autovalidateMode: AutovalidateMode.onUserInteraction,
-//             keyboardType: textInputType ?? TextInputType.text,
-//             textCapitalization: TextCapitalization.sentences,
-//             controller: controller,
-//             textAlign: TextAlign.start,
-//             maxLines: maxLine ?? 1,
-//             textInputAction: TextInputAction.done,
-//             inputFormatters: inputFormatters,
-//             obscureText: obscureText ?? false,
-//             validator: validation,
-//             onChanged: onChanged,
-//             onFieldSubmitted:onFieldSubmitted,
-//             style: const TextStyle(
-//               fontSize: 16,
-//               color: AppThemeData.black,
-//               fontFamily: AppThemeData.medium,
-//             ),
-//             decoration: InputDecoration(
-//               errorStyle: const TextStyle(color: Colors.red),
-//               isDense: true,
-//               filled: true,
-//               enabled: enable ?? true,
-//               fillColor: AppThemeData.colorLightWhite,
-//               contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: prefix != null ? 0 : 10),
-//               prefixIcon: prefix,
-//               suffixIcon: suffix,
-//               disabledBorder:  OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: appColor)),
-//               focusedBorder:  OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: appColor)),
-//               enabledBorder:  OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: appColor)),
-//               errorBorder:  OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: appColor)),
-//               border:  OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: appColor)),
-//               hintText: hintText.tr,
-//               hintStyle: TextStyle(
-//                 fontSize: 16,
-//                 color: AppThemeData.black.withOpacity(0.50),
-//                 fontWeight: FontWeight.w400,
-//                 fontFamily: AppThemeData.regular,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

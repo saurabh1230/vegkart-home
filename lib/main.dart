@@ -21,17 +21,29 @@ import 'package:ebasket_customer/services/localDatabase.dart'; // Import your da
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessageBackgroundHandle);
+  await Firebase.initializeApp(
+    name: 'vegkart',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Set up Firebase App Check
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.playIntegrity, // For Android
+  );
+  // await FirebaseAppCheck.instance.activate(
+  //   androidProvider: AndroidProvider.playIntegrity, // For Android
+  // );
 
 
   final CartDatabase database = CartDatabase();
 
   // Initialize Firebase
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-      name: 'vegkart',
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
+  // if (Firebase.apps.isEmpty) {
+  //   await Firebase.initializeApp(
+  //     name: 'vegkart',
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // }
 
   // Initialize preferences
   await Preferences.initPref();
