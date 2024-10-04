@@ -167,7 +167,6 @@ class EditProfileScreen extends StatelessWidget {
                                 child: Icon(Icons.call,color: Theme.of(context).disabledColor,),
                               ),
                             ),
-
                             // MobileNumberTextField(
                             //   title: "Enter Mobile Number *".tr,
                             //   read: true,

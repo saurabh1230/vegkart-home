@@ -179,7 +179,7 @@ class LoginScreen extends StatelessWidget {
                               // Combine country code and mobile number to create a complete phone number
                               String fullPhoneNumber = '+91' + controller.mobileNumberController.value.text;
                               // Call the sendCode method which now handles both login and signup logic
-                              controller.sendCode(fullPhoneNumber);
+                              controller.sendCode();
                             }
                           },
                         ),

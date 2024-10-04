@@ -1,136 +1,92 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ebasket_customer/app/model/user_model.dart';
 import 'package:ebasket_customer/app/ui/dashboard_screen/dashboard_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:ebasket_customer/app/ui/otp_verification_screen/otp_verification_screen.dart';
+import 'package:ebasket_customer/constant/constant.dart';
+import 'package:ebasket_customer/constant/send_notification.dart';
+import 'package:ebasket_customer/services/firebase_helper.dart';
+import 'package:ebasket_customer/services/notification_service.dart';
 import 'package:ebasket_customer/services/show_toast_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
-import '../ui/login_screen/login_screen.dart';
-
 class LoginController extends GetxController {
+  // Controllers for mobile number and country code
   Rx<TextEditingController> mobileNumberController = TextEditingController().obs;
   Rx<TextEditingController> countryCode = TextEditingController(text: "+91").obs;
   Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  var verificationId = ''.obs;
+  // Firebase user credential
+  auth.UserCredential? userCredential;
 
-  void sendCode(String phoneNumber) async {
-    ShowToastDialog.showLoader("Please Wait".tr);
-    print("Attempting to send code to phone number: $phoneNumber");
+  // Used to store the verification ID for OTP
+  RxString verificationID = "".obs;
 
-    try {
-      await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          print("Verification completed with credential: $credential");
-          await _auth.signInWithCredential(credential);
-          ShowToastDialog.closeLoader();
-          print("User signed in automatically.");
-          Get.off(DashBoardScreen()); // Navigate to dashboard
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          ShowToastDialog.closeLoader();
-          debugPrint("Verification failed: ${e.message}");
-          ShowToastDialog.showToast(e.code);
-          print("Verification failed with code: ${e.code}");
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          ShowToastDialog.closeLoader();
-          print("Code sent. Verification ID: $verificationId");
-          Get.to(OTPVerificationScreen(), arguments: {
-            "countryCode": countryCode.value.text,
-            "phoneNumber": mobileNumberController.value.text,
-            "verificationId": verificationId,
-            "fromSignup": true,
-          });
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          print("Auto retrieval timeout for verification ID: $verificationId");
-        },
-      );
-    } catch (e) {
-      debugPrint("Error during phone verification: $e");
-      ShowToastDialog.closeLoader();
-      ShowToastDialog.showToast("An error occurred. Please try again.");
+  // OTP related flag
+  RxBool fromOTP = false.obs;
+
+  @override
+  void onInit() {
+    getArgument();
+    super.onInit();
+  }
+
+  // Get arguments if coming from OTP screen
+  getArgument() async {
+    dynamic argumentData = Get.arguments;
+
+    if (argumentData != null) {
+      // Debug prints to check values
+      print("Argument Data: $argumentData");
+
+      // Check for null values and assign
+      if (argumentData['countryCode'] != null) {
+        countryCode.value.text = argumentData['countryCode'];
+      } else {
+        print("Country Code is null");
+      }
+
+      if (argumentData['phoneNumber'] != null) {
+        mobileNumberController.value.text = argumentData['phoneNumber'];
+      } else {
+        print("Phone Number is null");
+      }
+
+      if (argumentData["fromOTP"] != null) {
+        fromOTP.value = argumentData["fromOTP"];
+      } else {
+        print("fromOTP is null");
+      }
+
+      if (argumentData["userCredentials"] != null) {
+        userCredential = argumentData["userCredentials"];
+      } else {
+        print("User Credentials is null");
+      }
     }
+    update();
   }
 
-  void login(String phoneNumber) {
-    ShowToastDialog.showLoader("Logging in...");
-    print("Logging in with phone number: $phoneNumber");
-    signInWithPhone(phoneNumber);
-  }
+  // Function to send OTP to the provided mobile number
+  sendCode() async {
+    ShowToastDialog.showLoader("Please Wait".tr);
 
-  void signUp(String phoneNumber) {
-    ShowToastDialog.showLoader("Signing up...");
-    print("Signing up with phone number: $phoneNumber");
-    sendOTP(phoneNumber);
-  }
-
-  Future<void> signInWithPhone(String phoneNumber) async {
-    print("Attempting to sign in with phone number: $phoneNumber");
-    await _auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (auth.PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential);
-        print("User signed in successfully.");
-        Get.off(DashBoardScreen());
-      },
+    await auth.FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: countryCode.value.text + mobileNumberController.value.text,
+      verificationCompleted: (auth.PhoneAuthCredential credential) {},
       verificationFailed: (auth.FirebaseAuthException e) {
         ShowToastDialog.closeLoader();
-        debugPrint("FirebaseAuthException: ${e.message}");
         if (e.code == 'invalid-phone-number') {
           ShowToastDialog.showToast("Invalid Phone Number");
         } else {
           ShowToastDialog.showToast(e.code);
         }
-        print("Verification failed with error: ${e.code}");
       },
       codeSent: (String verificationId, int? resendToken) {
         ShowToastDialog.closeLoader();
-        print("Code sent. Verification ID: $verificationId");
-        Get.to(OTPVerificationScreen(), arguments: {
-          "countryCode": countryCode.value.text,
-          "phoneNumber": mobileNumberController.value.text,
-          "verificationId": verificationId,
-          "fromSignup": false, // Indicate that this is a login process
-        });
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        ShowToastDialog.closeLoader();
-        print("Auto retrieval timeout for verification ID: $verificationId");
-      },
-    ).catchError((error) {
-      debugPrint("Error during verification: $error");
-      ShowToastDialog.closeLoader();
-      ShowToastDialog.showToast("Multiple Time Request".tr);
-    });
-  }
 
-  void sendOTP(String phoneNumber) {
-    print("Attempting to send OTP to phone number: $phoneNumber");
-    _auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (auth.PhoneAuthCredential credential) async {
-        await _auth.signInWithCredential(credential);
-        print("User signed in successfully.");
-        Get.off(DashBoardScreen());
-      },
-      verificationFailed: (auth.FirebaseAuthException e) {
-        ShowToastDialog.closeLoader();
-        debugPrint("FirebaseAuthException: ${e.message}");
-        if (e.code == 'invalid-phone-number') {
-          ShowToastDialog.showToast("Invalid Phone Number");
-        } else {
-          ShowToastDialog.showToast(e.code);
-        }
-        print("Verification failed with error: ${e.code}");
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        ShowToastDialog.closeLoader();
-        print("Code sent. Verification ID: $verificationId");
+        // Navigate to OTP screen with required arguments
         Get.to(OTPVerificationScreen(), arguments: {
           "countryCode": countryCode.value.text,
           "phoneNumber": mobileNumberController.value.text,
@@ -138,54 +94,60 @@ class LoginController extends GetxController {
           "fromSignup": true,
         });
       },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        ShowToastDialog.closeLoader();
-        print("Auto retrieval timeout for verification ID: $verificationId");
-      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
     ).catchError((error) {
-      debugPrint("Error during sending OTP: $error");
       ShowToastDialog.closeLoader();
-      ShowToastDialog.showToast("Multiple Time Request".tr);
+      ShowToastDialog.showToast("Error: ${error.toString()}".tr);
     });
   }
 
-  Future<void> verifyOTP(String otp) async {
-    print("Verifying OTP: $otp");
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: verificationId.value,
-      smsCode: otp,
+  // Function to verify OTP and sign in/register user
+  verifyOTP(String otp) async {
+    ShowToastDialog.showLoader("Verifying OTP...".tr);
+
+    try {
+      // Create phone auth credential using the verification ID and the OTP
+      auth.PhoneAuthCredential credential = auth.PhoneAuthProvider.credential(
+        verificationId: verificationID.value,
+        smsCode: otp,
+      );
+
+      // Sign in with the phone auth credential
+      userCredential = await auth.FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Once signed in, save the mobile number to Firestore (registration)
+      if (userCredential != null) {
+        registerUser(); // This will register the user with mobile number
+      }
+
+      ShowToastDialog.closeLoader();
+    } catch (e) {
+      ShowToastDialog.closeLoader();
+      ShowToastDialog.showToast("Invalid OTP".tr);
+    }
+  }
+
+  // Function to register user by saving only the mobile number to Firestore
+  registerUser() async {
+    ShowToastDialog.showLoader("Registering User...".tr);
+    UserModel user = UserModel(
+      countryCode: countryCode.value.text,
+      phoneNumber: mobileNumberController.value.text,
+      id: userCredential!.user?.uid ?? '',
+      createdAt: Timestamp.now(),
+      fcmToken: await NotificationService.getToken(),
+      role: Constant.USER_ROLE_CUSTOMER,
+      active: true,
     );
 
-    await _auth.signInWithCredential(credential).then((result) {
-      print("User signed in successfully after OTP verification.");
-      Get.off(DashBoardScreen());
-    }).catchError((error) {
-      print("Error during OTP verification: $error");
-    });
-  }
+    String? errorMessage = await FireStoreUtils.firebaseCreateNewUser(user);
+    if (errorMessage == null) {
+      Constant.currentUser = user;
+      Get.offAll(const DashBoardScreen());
+    } else {
+      ShowToastDialog.showToast(errorMessage);
+    }
 
-  Future<User?> getCurrentUser() async {
-    User? user = _auth.currentUser;
-    print("Current user: ${user?.phoneNumber}");
-    return user;
-  }
-
-  Future<void> signOut() async {
-    print("Signing out user.");
-    await _auth.signOut();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    _auth.authStateChanges().listen((User? user) {
-      if (user != null) {
-        print("User is signed in: ${user.phoneNumber}");
-        Get.off(DashBoardScreen());
-      } else {
-        print("User is signed out.");
-        Get.off(LoginScreen());
-      }
-    });
+    ShowToastDialog.closeLoader();
   }
 }

@@ -77,10 +77,9 @@ class EditProfileController extends GetxController {
 
     UserModel user = userModel.value;
     user.fullName = fullNameController.value.text;
-
     user.phoneNumber = mobileNumberController.value.text;
     user.email = emailAddressController.value.text;
-    user.countryCode = countryCode.value.text;
+    user.countryCode = '+91';
     user.image = profileImage.value;
 
     FireStoreUtils.updateCurrentUser(user).then(

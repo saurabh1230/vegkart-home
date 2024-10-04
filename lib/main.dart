@@ -30,9 +30,7 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.playIntegrity, // For Android
   );
-  // await FirebaseAppCheck.instance.activate(
-  //   androidProvider: AndroidProvider.playIntegrity, // For Android
-  // );
+
 
 
   final CartDatabase database = CartDatabase();

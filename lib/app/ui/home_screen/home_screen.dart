@@ -638,18 +638,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     const SizedBox(
                                                       height: 15,
                                                     ),
-                                                    // GridView.builder(
-                                                    //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 1),
-                                                    //   itemCount: controller.categoryList.length,
-                                                    //   physics: const NeverScrollableScrollPhysics(),
-                                                    //   shrinkWrap: true,
-                                                    //   itemBuilder: (context, index) {
-                                                    //     CategoryModel categoryItem = controller.categoryList[index];
-                                                    //     return CategoryItemWidget(
-                                                    //       categoryItem: categoryItem,
-                                                    //     );
-                                                    //   },
-                                                    // ),
                                                     SizedBox(
                                                       height: 120,
                                                       child: ListView.separated(
@@ -781,84 +769,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     const SizedBox(
                                                       height: 25,
                                                     ),
-
-                                                    // Row(
-                                                    //   children: [
-                                                    //     Expanded(
-                                                    //       child: Text(
-                                                    //         "Established Brands".tr,
-                                                    //         style: TextStyle(
-                                                    //             color:
-                                                    //                 AppThemeData.black,
-                                                    //             fontSize: 18,
-                                                    //             fontFamily: AppThemeData
-                                                    //                 .semiBold),
-                                                    //       ),
-                                                    //     ),
-                                                    //     InkWell(
-                                                    //       onTap: () {
-                                                    //         Get.to(const ViewAllBrandScreen(),
-                                                    //                 arguments: {
-                                                    //               "type": 'brand'
-                                                    //             })!
-                                                    //             .then((value) {
-                                                    //           controller
-                                                    //               .getFavoriteData();
-                                                    //         });
-                                                    //       },
-                                                    //       child: Text(
-                                                    //         "View All".tr,
-                                                    //         style: TextStyle(
-                                                    //             color: AppThemeData
-                                                    //                 .groceryAppDarkBlue,
-                                                    //             fontSize: 12,
-                                                    //             fontFamily: AppThemeData
-                                                    //                 .semiBold),
-                                                    //       ),
-                                                    //     )
-                                                    //   ],
-                                                    // ),
-                                                    // const SizedBox(
-                                                    //   height: 10,
-                                                    // ),
-                                                    // Container(
-                                                    //   height: Responsive.height(
-                                                    //       38.3, context),
-                                                    //   alignment: Alignment.centerLeft,
-                                                    //   child: controller
-                                                    //           .establishedProductList
-                                                    //           .isEmpty
-                                                    //       ? Constant.showEmptyView(
-                                                    //           message:
-                                                    //               "No Established Brands Found"
-                                                    //                   .tr)
-                                                    //       : ListView.builder(
-                                                    //           shrinkWrap: true,
-                                                    //           scrollDirection:
-                                                    //               Axis.horizontal,
-                                                    //           padding: EdgeInsets.zero,
-                                                    //           itemCount: controller
-                                                    //                       .establishedProductList
-                                                    //                       .length >=
-                                                    //                   8
-                                                    //               ? 8
-                                                    //               : controller
-                                                    //                   .establishedProductList
-                                                    //                   .length,
-                                                    //           itemBuilder:
-                                                    //               (context, index) {
-                                                    //             ProductModel
-                                                    //                 establishedBrandItem =
-                                                    //                 controller
-                                                    //                         .establishedProductList[
-                                                    //                     index];
-                                                    //
-                                                    //             return EstablishedBrandItemWidget(
-                                                    //               establishedBrandItem:
-                                                    //                   establishedBrandItem,
-                                                    //             );
-                                                    //           }),
-                                                    // ),
                                                   ],
                                                 ),
                                               ),
