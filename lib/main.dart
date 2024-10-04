@@ -22,13 +22,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessageBackgroundHandle);
   await Firebase.initializeApp(
+
     name: 'vegkart',
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Set up Firebase App Check
+
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.playIntegrity, // For Android
+    androidProvider: AndroidProvider.debug,
+    // androidProvider: AndroidProvider.playIntegrity, // For Android
   );
 
 

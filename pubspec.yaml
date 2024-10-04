@@ -83,9 +83,7 @@ dependencies:
   carousel_slider: ^4.0.0
   lottie: ^3.1.2
   flutter_typeahead: ^4.0.0
-
   mailer: ^6.1.0
-
   google_maps_place_picker_mb: any
   http: any
   uuid: any

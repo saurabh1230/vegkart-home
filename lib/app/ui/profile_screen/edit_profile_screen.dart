@@ -1,23 +1,16 @@
 import 'dart:io';
-
-import 'package:ebasket_customer/app/model/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ebasket_customer/app/controller/edit_profile_controller.dart';
-import 'package:ebasket_customer/app/model/location_lat_lng.dart';
 import 'package:ebasket_customer/constant/constant.dart';
-import 'package:ebasket_customer/widgets/mobile_number_textfield.dart';
 import 'package:get/get.dart';
 import 'package:ebasket_customer/theme/app_theme_data.dart';
 import 'package:ebasket_customer/theme/responsive.dart';
 import 'package:ebasket_customer/widgets/common_ui.dart';
 import 'package:ebasket_customer/widgets/round_button_fill.dart';
 import 'package:ebasket_customer/widgets/text_field_widget.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../utils/theme/light_theme.dart';
 
@@ -167,26 +160,6 @@ class EditProfileScreen extends StatelessWidget {
                                 child: Icon(Icons.call,color: Theme.of(context).disabledColor,),
                               ),
                             ),
-                            // MobileNumberTextField(
-                            //   title: "Enter Mobile Number *".tr,
-                            //   read: true,
-                            //   controller: controller.mobileNumberController.value,
-                            //   countryCodeController: controller.countryCode.value,
-                            //   inputFormatters: [
-                            //     LengthLimitingTextInputFormatter(10),
-                            //   ],
-                            //   validation: (value) {
-                            //     String pattern = r'(^\+?[0-9]*$)';
-                            //     RegExp regExp = RegExp(pattern);
-                            //     if (value!.isEmpty) {
-                            //       return 'Mobile is required'.tr;
-                            //     } else if (!regExp.hasMatch(value)) {
-                            //       return 'Mobile Number must be digits'.tr;
-                            //     }
-                            //     return null;
-                            //   },
-                            //   onPress: () {},
-                            // ),
                             TextFieldWidget(
                               controller: controller.emailAddressController.value,
                               hintText: "Email Address".tr,

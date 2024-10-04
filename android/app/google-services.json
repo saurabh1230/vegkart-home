@@ -16,6 +16,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyDW1JwUTw_enzK2BjxuUB57Yscp93S3r98"
+        },
+        {
+          "current_key": "AIzaSyC-VIn5NAy4CSElBtn8ejHVj7VQWYL1n6Q"
         }
       ],
       "services": {
@@ -26,7 +29,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:802628591129:android:568c52537a1c66f9979488",
+        "mobilesdk_app_id": "1:802628591129:android:96e8859dd4e4ca64979488",
         "android_client_info": {
           "package_name": "com.vegkart.customerapp"
         }
@@ -35,6 +38,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyDW1JwUTw_enzK2BjxuUB57Yscp93S3r98"
+        },
+        {
+          "current_key": "AIzaSyC-VIn5NAy4CSElBtn8ejHVj7VQWYL1n6Q"
         }
       ],
       "services": {
