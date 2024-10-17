@@ -23,7 +23,6 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMessageBackgroundHandle);
 
   await Firebase.initializeApp(
-
     name: 'vegkart',
     options: DefaultFirebaseOptions.currentPlatform,
   );

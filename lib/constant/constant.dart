@@ -40,8 +40,7 @@ class Constant {
   static String aboutUs = "";
 
   // static String globalUrl = "https://gbestgrocery.siddhidevelopment.com/";
-  // static String globalUrl = "https://ebasket.siswebapp.com/";
-  static String globalUrl = "https://vegkart.lab5.invoidea.in/";
+  static String globalUrl = "https://ebasket.siswebapp.com/";
   static String vendorRadius = "0";
   static String distance = "0";
   static String minorderAmount = "";
